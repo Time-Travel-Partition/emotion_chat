@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "786156777104",
+    "project_id": "emotionchat-426f4",
+    "storage_bucket": "emotionchat-426f4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786156777104:android:46f87ddce9b2e8f616f215",
+        "android_client_info": {
+          "package_name": "com.example.emotion_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEQ2VAqJtwHy1Oubr8JZpFYfFrmp3T4nI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
