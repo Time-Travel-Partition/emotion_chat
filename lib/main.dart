@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
-// ...
+import 'package:emotion_chat/widgets/emotion_button.dart';
 
 void main() async {
   //firestore 초기화
@@ -13,8 +12,8 @@ void main() async {
   );
 
   //firestore 샘플 데이터 쓰기 (테스트용)
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  await _firestore.collection("cars").doc().set(
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  await firestore.collection("cars").doc().set(
     {
       "brand": "Genesis",
       "name": "G80",
@@ -37,8 +36,28 @@ class App extends StatelessWidget {
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
-        body: const Center(
-          child: Text('감정을 선택해주세요!'),
+        body: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '감정을 선택해주세요!',
+              style: TextStyle(fontSize: 20),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                EmotionButton(text: '기쁨', color: Colors.yellow),
+                EmotionButton(text: '우울', color: Colors.blue),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                EmotionButton(text: '불안', color: Colors.green),
+                EmotionButton(text: '화남', color: Colors.red),
+              ],
+            ),
+          ],
         ),
       ),
     );
