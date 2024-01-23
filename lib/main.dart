@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:emotion_chat/widgets/emotion_button.dart';
-import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
+import 'package:emotion_chat/screens/landing.dart';
 
 void main() async {
   //firestore 초기화
@@ -30,61 +29,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text(
-            'Time Travel',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Choose your feelings 🙂',
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(
-              height: 80, // 여백
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    EmotionButton(
-                      image: Image.asset('images/happy.png'),
-                    ),
-                    EmotionButton(
-                      image: Image.asset('images/anxious.png'),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    EmotionButton(
-                      image: Image.asset('images/angry.png'),
-                    ),
-                    EmotionButton(
-                      image: Image.asset('images/depressed.png'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        bottomNavigationBar: const BottonMenuBar(),
-      ),
+    return const MaterialApp(
+      home: Landing(),
     );
   }
 }
