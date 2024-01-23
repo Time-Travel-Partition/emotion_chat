@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:emotion_chat/widgets/emotion_button.dart';
+import 'package:emotion_chat/screens/landing.dart';
 
 void main() async {
   //firestore 초기화
@@ -29,37 +29,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Time Travel'),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
-        ),
-        body: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '감정을 선택해주세요!',
-              style: TextStyle(fontSize: 20),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                EmotionButton(text: '기쁨', color: Colors.yellow),
-                EmotionButton(text: '우울', color: Colors.blue),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                EmotionButton(text: '불안', color: Colors.green),
-                EmotionButton(text: '화남', color: Colors.red),
-              ],
-            ),
-          ],
-        ),
-      ),
+    return const MaterialApp(
+      home: Landing(),
     );
   }
 }
