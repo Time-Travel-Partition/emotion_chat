@@ -31,31 +31,76 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text('Time Travel'),
+          title: const Text(
+            'Time Travel',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+            ),
+          ),
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
-        body: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '감정을 선택해주세요!',
-              style: TextStyle(fontSize: 20),
+            const SizedBox(
+              height: 0, // 여백을 위해 임시 삽입
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            const Text(
+              'Choose your feelings 🙂',
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
+            Column(
               children: [
-                EmotionButton(text: '기쁨', color: Colors.yellow),
-                EmotionButton(text: '우울', color: Colors.blue),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    EmotionButton(
+                      image: Image.asset('images/happy.png'),
+                    ),
+                    EmotionButton(
+                      image: Image.asset('images/anxious.png'),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    EmotionButton(
+                      image: Image.asset('images/angry.png'),
+                    ),
+                    EmotionButton(
+                      image: Image.asset('images/depressed.png'),
+                    ),
+                  ],
+                ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                EmotionButton(text: '불안', color: Colors.green),
-                EmotionButton(text: '화남', color: Colors.red),
+            BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home_rounded,
+                    size: 48,
+                  ),
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.person_rounded,
+                    size: 48,
+                  ),
+                  label: 'Profile',
+                ),
               ],
+              backgroundColor: Colors.blue,
+              selectedItemColor: Colors.white,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
             ),
           ],
         ),
