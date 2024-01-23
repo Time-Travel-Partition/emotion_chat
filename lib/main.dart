@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
+import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 
 void main() async {
   //firestore 초기화
@@ -43,16 +44,16 @@ class App extends StatelessWidget {
           backgroundColor: Colors.blue,
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 0, // 여백을 위해 임시 삽입
-            ),
             const Text(
               'Choose your feelings 🙂',
               style: TextStyle(
                 fontSize: 20,
               ),
+            ),
+            const SizedBox(
+              height: 80, // 여백
             ),
             Column(
               children: [
@@ -80,30 +81,9 @@ class App extends StatelessWidget {
                 ),
               ],
             ),
-            BottomNavigationBar(
-              items: const <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home_rounded,
-                    size: 48,
-                  ),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person_rounded,
-                    size: 48,
-                  ),
-                  label: 'Profile',
-                ),
-              ],
-              backgroundColor: Colors.blue,
-              selectedItemColor: Colors.white,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-            ),
           ],
         ),
+        bottomNavigationBar: const BottonMenuBar(),
       ),
     );
   }
