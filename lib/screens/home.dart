@@ -17,6 +17,12 @@ class Home extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_rounded),
+          ),
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
