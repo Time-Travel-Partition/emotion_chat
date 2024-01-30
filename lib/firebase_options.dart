@@ -8,16 +8,19 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-// / import 'firebase_options.dart';
-// / // ...
-// / await Firebase.initializeApp(
-// /   options: DefaultFirebaseOptions.currentPlatform,
-// / );
+/// import 'firebase_options.dart';
+/// // ...
+/// await Firebase.initializeApp(
+///   options: DefaultFirebaseOptions.currentPlatform,
+/// );
 /// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBShtEfau6T1bTj6EwRdqgNmQbdwTZ0-wU',
-    appId: '1:786156777104:web:a1af3b7d0fe2853d16f215',
-    messagingSenderId: '786156777104',
-    projectId: 'emotionchat-426f4',
-    authDomain: 'emotionchat-426f4.firebaseapp.com',
-    storageBucket: 'emotionchat-426f4.appspot.com',
-    measurementId: 'G-MVCNDKVXMT',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDEQ2VAqJtwHy1Oubr8JZpFYfFrmp3T4nI',
     appId: '1:786156777104:android:46f87ddce9b2e8f616f215',
@@ -68,14 +64,5 @@ class DefaultFirebaseOptions {
     projectId: 'emotionchat-426f4',
     storageBucket: 'emotionchat-426f4.appspot.com',
     iosBundleId: 'com.example.emotionChat',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyC-QTJE5F-tSfaIrv8_3mQBVbPGkk8ofzE',
-    appId: '1:786156777104:ios:350db83a0c45eebf16f215',
-    messagingSenderId: '786156777104',
-    projectId: 'emotionchat-426f4',
-    storageBucket: 'emotionchat-426f4.appspot.com',
-    iosBundleId: 'com.example.emotionChat.RunnerTests',
   );
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emotion_chat/auth/login_or_register.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -20,8 +21,8 @@ void main() async {
       "price": 7000,
     },
   );
-
-  runApp(const App());
+  // dev/jaeho : App => LoginOrRegister
+  runApp(const LoginOrRegister());
 }
 
 class App extends StatelessWidget {
