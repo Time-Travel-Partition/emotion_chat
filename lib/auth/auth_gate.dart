@@ -1,7 +1,5 @@
 import 'package:emotion_chat/auth/login_or_register.dart';
-import 'package:emotion_chat/main.dart';
-import 'package:emotion_chat/pages/Logout_Page.dart';
-import 'package:emotion_chat/screens/landing.dart';
+import 'package:emotion_chat/screens/Logout_Page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
