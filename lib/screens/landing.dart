@@ -1,4 +1,4 @@
-import 'package:emotion_chat/auth/login_or_register.dart';
+import 'package:emotion_chat/auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/screens/home.dart';
 
@@ -34,10 +34,8 @@ class Landing extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const LoginOrRegister()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const AuthGate()));
                 },
                 child: const Text('To Login'),
               ),
