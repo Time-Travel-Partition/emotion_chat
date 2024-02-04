@@ -4,6 +4,7 @@ import 'package:emotion_chat/components/my_textfield.dart';
 import 'package:emotion_chat/themes/light_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   // email and pw text controllers
@@ -17,7 +18,8 @@ class LoginPage extends StatelessWidget {
 
   void login(BuildContext context) async {
     // auth service
-    final authService = AuthService();
+    // final authService = AuthService();
+    final authService = Provider.of<AuthService>(context, listen: false);
 
     // try login
     try {
