@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
+import 'package:emotion_chat/auth/auth_service.dart';
+import 'package:provider/provider.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  void signOut() {
+    // get auth service
+    final authService = Provider.of<AuthService>(context, listen: false);
+    authService.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +30,18 @@ class Home extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_rounded),
-          ),
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Navigator.pop(context);
+          //   },
+          //   icon: const Icon(Icons.arrow_back_rounded),
+          // ),
+          actions: [
+            IconButton(
+              onPressed: signOut,
+              icon: const Icon(Icons.logout),
+            ),
+          ],
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),

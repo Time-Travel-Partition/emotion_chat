@@ -38,7 +38,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false, // dev/jaeho => 추가
-        home: Landing() // main : Landing(), dev/jaeho : AuthGate()
+        home: AuthGate() // main : Landing(), dev/jaeho : AuthGate()
         );
   }
 }

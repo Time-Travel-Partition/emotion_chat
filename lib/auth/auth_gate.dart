@@ -1,5 +1,5 @@
 import 'package:emotion_chat/auth/login_or_register.dart';
-import 'package:emotion_chat/screens/Logout_Page.dart';
+import 'package:emotion_chat/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class AuthGate extends StatelessWidget {
         builder: (context, snapshot) {
           // user is logged in
           if (snapshot.hasData) {
-            return const LogoutPage();
+            return const Home();
           }
 
           // user is not logged in
