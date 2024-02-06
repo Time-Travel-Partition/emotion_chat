@@ -17,8 +17,8 @@ class LoginPage extends StatelessWidget {
 
   void login(BuildContext context) async {
     // auth service
-    // final authService = AuthService();
-    final authService = Provider.of<AuthService>(context, listen: false);
+    final authService = AuthService();
+    //final authService = Provider.of<AuthService>(context, listen: false);
 
     // try login
     try {

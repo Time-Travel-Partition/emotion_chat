@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/my_button.dart';
+import 'package:emotion_chat/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/my_textfield.dart';
 import 'package:emotion_chat/themes/light_mode.dart';
 
@@ -14,9 +15,30 @@ class RegisterPage extends StatelessWidget {
   RegisterPage({super.key, required this.onTap});
 
   //register method
-  void login() {}
+  // void login() {}
 
-  void register() {}
+  void register(BuildContext context) {
+    final auth = AuthService();
+
+    // passwords match => user 생성
+    if (_pwController.text == _confirmPwController.text) {
+      try {
+        auth.signUpWithEmailPassword(_emailController.text, _pwController.text);
+      } catch (e) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text(e.toString()),
+                ));
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) => const AlertDialog(
+                title: Text("비밀번호가 일치하지 않습니다."),
+              ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +94,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 25),
 
             // register button
-            MyButton(text: "회원가입", onTap: register),
+            MyButton(text: "회원가입", onTap: () => register(context)),
 
             const SizedBox(height: 25),
 

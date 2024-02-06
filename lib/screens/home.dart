@@ -14,8 +14,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   void signOut() {
     // get auth service
-    final authService = Provider.of<AuthService>(context, listen: false);
-    authService.signOut();
+    // final authService = Provider.of<AuthService>(context, listen: false);
+    // authService.signOut();
+    final auth = AuthService();
+    auth.signOut();
   }
 
   @override

@@ -22,10 +22,22 @@ class AuthService extends ChangeNotifier {
   }
 
   // sign up
+  Future<UserCredential> signUpWithEmailPassword(String email, password) async {
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code); // 미해결 : 이메일 중복, weak password (예시 pw: test3)
+    }
+  }
 
   // sign out
   Future<void> signOut() async {
-    return await FirebaseAuth.instance.signOut();
+    return await _auth.signOut();
   }
   // errors
 }
