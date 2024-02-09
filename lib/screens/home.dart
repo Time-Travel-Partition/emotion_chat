@@ -1,7 +1,8 @@
+import 'package:emotion_chat/widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
-import 'package:emotion_chat/auth/auth_service.dart';
+import 'package:emotion_chat/service/auth/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -12,14 +13,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  void signOut() {
-    // get auth service
-    // final authService = Provider.of<AuthService>(context, listen: false);
-    // authService.signOut();
-    final auth = AuthService();
-    auth.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,15 +31,10 @@ class _HomeState extends State<Home> {
           //   },
           //   icon: const Icon(Icons.arrow_back_rounded),
           // ),
-          actions: [
-            IconButton(
-              onPressed: signOut,
-              icon: const Icon(Icons.logout),
-            ),
-          ],
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
+        drawer: const HomeDrawer(),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

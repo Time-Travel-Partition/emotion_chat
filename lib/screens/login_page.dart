@@ -1,4 +1,4 @@
-import 'package:emotion_chat/auth/auth_service.dart';
+import 'package:emotion_chat/service/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/my_button.dart';
 import 'package:emotion_chat/widgets/my_textfield.dart';
 import 'package:emotion_chat/themes/light_mode.dart';
