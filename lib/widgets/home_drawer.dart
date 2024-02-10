@@ -1,3 +1,5 @@
+import 'package:emotion_chat/screens/chat_page.dart';
+import 'package:emotion_chat/screens/user_list.dart';
 import 'package:emotion_chat/service/auth/auth_service.dart';
 import 'package:emotion_chat/screens/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,26 @@ class HomeDrawer extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const SettingsPage(),
+                        ));
+                  },
+                ),
+              ),
+
+              // home list tile
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text("C H A T  P A G E"),
+                  leading: const Icon(Icons.chat_bubble),
+                  onTap: () {
+                    //pop the drawer
+                    Navigator.pop(context);
+
+                    //Navigate to Chat page;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserList(),
                         ));
                   },
                 ),
