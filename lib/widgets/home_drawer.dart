@@ -28,7 +28,9 @@ class HomeDrawer extends StatelessWidget {
               DrawerHeader(
                   child: Center(
                 child: Icon(Icons.message,
-                    color: Theme.of(context).colorScheme.primary, size: 40),
+                    // color: Theme.of(context).colorScheme.primary, size: 40
+                    color: Colors.grey.shade500,
+                    size: 40),
               )),
 
               // home list tile

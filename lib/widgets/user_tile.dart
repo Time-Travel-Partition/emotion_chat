@@ -14,7 +14,8 @@ class UserTile extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.secondary,
+            // color: Theme.of(context).colorScheme.secondary,
+            color: Colors.grey.shade500,
             borderRadius: BorderRadius.circular(12),
           ),
           margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),

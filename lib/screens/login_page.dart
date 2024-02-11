@@ -35,8 +35,6 @@ class LoginPage extends StatelessWidget {
     // catch any errors
   }
 
-  void register() {}
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -48,7 +46,9 @@ class LoginPage extends StatelessWidget {
           children: [
             //logo
             Icon(Icons.message,
-                size: 60, color: Theme.of(context).colorScheme.primary),
+                size: 60,
+                // color: Theme.of(context).primaryColor,
+                color: Colors.grey.shade500),
 
             const SizedBox(
               height: 50,
@@ -58,7 +58,8 @@ class LoginPage extends StatelessWidget {
             Text(
               "환영합니다, 감정챗봇과 자유롭게 대화해요",
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                //color: Theme.of(context).colorScheme.primary,
+                color: Colors.grey.shade500,
                 fontSize: 16,
               ),
             ),
@@ -92,8 +93,10 @@ class LoginPage extends StatelessWidget {
               children: [
                 Text(
                   "아직 회원이 아니신가요? ",
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  style: TextStyle(
+                    // color: Theme.of(context).colorScheme.primary
+                    color: Colors.grey.shade500,
+                  ),
                 ),
                 GestureDetector(
                   onTap: onTap,
@@ -101,7 +104,8 @@ class LoginPage extends StatelessWidget {
                     "회원가입",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary),
+                        // color: Theme.of(context).colorScheme.primary),
+                        color: Colors.grey.shade500),
                   ),
                 )
               ],
