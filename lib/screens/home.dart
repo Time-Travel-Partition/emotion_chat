@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/auth/auth_service.dart';
-import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
