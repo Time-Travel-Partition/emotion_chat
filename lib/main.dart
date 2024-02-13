@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emotion_chat/auth/auth_gate.dart';
 import 'package:emotion_chat/auth/auth_service.dart';
-import 'package:emotion_chat/auth/login_or_register.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
-import 'package:emotion_chat/screens/landing.dart';
 
 void main() async {
   //firestore 초기화
