@@ -2,7 +2,6 @@ import 'package:emotion_chat/service/chat/chat_service.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/user_tile.dart';
 import '../service/auth/auth_service.dart';
-import '../widgets/home_drawer.dart';
 import 'package:emotion_chat/screens/chat_page.dart';
 
 // HomePage -> UserList

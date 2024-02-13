@@ -2,8 +2,6 @@ import 'package:emotion_chat/widgets/home_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
-import 'package:emotion_chat/service/auth/auth_service.dart';
-import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -25,12 +23,6 @@ class _HomeState extends State<Home> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          // leading: IconButton(
-          //   onPressed: () {
-          //     Navigator.pop(context);
-          //   },
-          //   icon: const Icon(Icons.arrow_back_rounded),
-          // ),
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
@@ -53,9 +45,11 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     EmotionButton(
+                      emotion: 'happy',
                       image: Image.asset('images/happy.png'),
                     ),
                     EmotionButton(
+                      emotion: 'anxious',
                       image: Image.asset('images/anxious.png'),
                     ),
                   ],
@@ -64,9 +58,11 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     EmotionButton(
+                      emotion: 'angry',
                       image: Image.asset('images/angry.png'),
                     ),
                     EmotionButton(
+                      emotion: 'depressed',
                       image: Image.asset('images/depressed.png'),
                     ),
                   ],
