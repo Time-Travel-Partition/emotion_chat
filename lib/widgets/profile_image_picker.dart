@@ -28,47 +28,50 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        (_profile != null)
-            ? ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image(
-                  image: FileImage(
-                    File(_profile!.path),
+    return Padding(
+      padding: const EdgeInsets.only(top: 70, bottom: 30),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          (_profile != null)
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image(
+                    image: FileImage(
+                      File(_profile!.path),
+                    ),
+                    fit: BoxFit.cover,
+                    width: 200,
+                    height: 200,
                   ),
-                  fit: BoxFit.cover,
+                )
+              : Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.blue),
+                  ),
                   width: 200,
                   height: 200,
                 ),
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.blue),
-                ),
-                width: 200,
-                height: 200,
-              ),
-        Positioned(
-          bottom: -20,
-          right: -20,
-          child: IconButton(
-            onPressed: _pickImage,
-            style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.blue),
-              foregroundColor: MaterialStatePropertyAll(Colors.white),
-              side: MaterialStatePropertyAll(
-                BorderSide(
-                  color: Colors.white,
+          Positioned(
+            bottom: -20,
+            right: -20,
+            child: IconButton(
+              onPressed: _pickImage,
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                foregroundColor: MaterialStatePropertyAll(Colors.white),
+                side: MaterialStatePropertyAll(
+                  BorderSide(
+                    color: Colors.white,
+                  ),
                 ),
               ),
+              icon: const Icon(Icons.camera_alt_rounded),
             ),
-            icon: const Icon(Icons.camera_alt_rounded),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
