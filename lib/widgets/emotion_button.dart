@@ -1,3 +1,4 @@
+import 'package:emotion_chat/screens/emotion_details.dart';
 import 'package:flutter/material.dart';
 
 class EmotionButton extends StatelessWidget {
@@ -10,12 +11,22 @@ class EmotionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(30),
-      child: SizedBox(
-        height: 100,
-        width: 100,
-        child: image,
+    return TextButton(
+      style: ButtonStyle(
+        overlayColor:
+            MaterialStateColor.resolveWith((states) => Colors.transparent),
+      ),
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const EmotionDetails()));
+      },
+      child: Container(
+        margin: const EdgeInsets.all(17),
+        child: SizedBox(
+          height: 100,
+          width: 100,
+          child: image,
+        ),
       ),
     );
   }
