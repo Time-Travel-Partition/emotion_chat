@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(
-            'Time Travel',
+            'Home',
             style: TextStyle(
               fontWeight: FontWeight.w500,
             ),
@@ -71,7 +71,9 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        bottomNavigationBar: const BottonMenuBar(),
+        bottomNavigationBar: const BottonMenuBar(
+          currentIndex: 0,
+        ),
       ),
     );
   }
