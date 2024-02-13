@@ -32,8 +32,6 @@ class _EmotionDetailsState extends State<EmotionDetails> {
       _selectedEmotion = [false, false, true, false];
     } else if (widget.emotion == 'depressed') {
       _selectedEmotion = [false, false, false, true];
-    } else {
-      _selectedEmotion = [false, false, false, false];
     }
   }
 
@@ -50,7 +48,7 @@ class _EmotionDetailsState extends State<EmotionDetails> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: const Text(
-            'Time Travel',
+            'Before Consultation',
             style: TextStyle(
               fontWeight: FontWeight.w500,
             ),
@@ -61,12 +59,6 @@ class _EmotionDetailsState extends State<EmotionDetails> {
             },
             icon: const Icon(Icons.arrow_back_rounded),
           ),
-          actions: [
-            IconButton(
-              onPressed: signOut,
-              icon: const Icon(Icons.logout),
-            ),
-          ],
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
