@@ -6,6 +6,7 @@ class EmotionToggleButtons extends StatefulWidget {
   final Color? selectedBorderColor;
   final Color? fillColor;
   final Color? color;
+  final List<bool>? selectedBtn;
 
   const EmotionToggleButtons(
       {super.key,
@@ -13,7 +14,8 @@ class EmotionToggleButtons extends StatefulWidget {
       required this.answers,
       required this.selectedBorderColor,
       required this.fillColor,
-      required this.color});
+      required this.color,
+      this.selectedBtn});
 
   @override
   State<EmotionToggleButtons> createState() => _EmotionToggleButtonsState();
@@ -25,7 +27,8 @@ class _EmotionToggleButtonsState extends State<EmotionToggleButtons> {
   @override
   void initState() {
     super.initState();
-    _selectedBtn = List<bool>.generate(widget.answers.length, (index) => false);
+    _selectedBtn = widget.selectedBtn ??
+        List<bool>.generate(widget.answers.length, (index) => false);
   }
 
   @override

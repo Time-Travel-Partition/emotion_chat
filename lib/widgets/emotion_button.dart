@@ -2,10 +2,12 @@ import 'package:emotion_chat/screens/emotion_details.dart';
 import 'package:flutter/material.dart';
 
 class EmotionButton extends StatelessWidget {
+  final String emotion;
   final Image image;
 
   const EmotionButton({
     super.key,
+    required this.emotion,
     required this.image,
   });
 
@@ -18,7 +20,11 @@ class EmotionButton extends StatelessWidget {
       ),
       onPressed: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (_) => const EmotionDetails()));
+          context,
+          MaterialPageRoute(
+            builder: (_) => EmotionDetails(emotion: emotion),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.all(17),

@@ -1,4 +1,4 @@
-import 'package:emotion_chat/auth/auth_service.dart';
+import 'package:emotion_chat/service/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/emotion_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
@@ -6,13 +6,37 @@ import 'package:emotion_chat/widgets/emotion_toggle_buttons.dart';
 import 'package:provider/provider.dart';
 
 class EmotionDetails extends StatefulWidget {
-  const EmotionDetails({super.key});
+  final String emotion;
+
+  const EmotionDetails({
+    super.key,
+    required this.emotion,
+  });
 
   @override
   State<EmotionDetails> createState() => _EmotionDetailsState();
 }
 
 class _EmotionDetailsState extends State<EmotionDetails> {
+  late List<bool> _selectedEmotion;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.emotion == 'happy') {
+      _selectedEmotion = [true, false, false, false];
+    } else if (widget.emotion == 'angry') {
+      _selectedEmotion = [false, true, false, false];
+    } else if (widget.emotion == 'anxious') {
+      _selectedEmotion = [false, false, true, false];
+    } else if (widget.emotion == 'depressed') {
+      _selectedEmotion = [false, false, false, true];
+    } else {
+      _selectedEmotion = [false, false, false, false];
+    }
+  }
+
   void signOut() {
     // get auth service
     final authService = Provider.of<AuthService>(context, listen: false);
@@ -56,6 +80,7 @@ class _EmotionDetailsState extends State<EmotionDetails> {
                 selectedBorderColor: Colors.blue[700],
                 fillColor: Colors.blue[200],
                 color: Colors.blue[400],
+                selectedBtn: _selectedEmotion,
               ),
               EmotionToggleButtons(
                 question: '그러한 감정이 얼마나 지속됐나요?',
