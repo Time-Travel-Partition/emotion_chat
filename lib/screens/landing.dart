@@ -1,4 +1,4 @@
-import 'package:emotion_chat/auth/auth_gate.dart';
+import 'package:emotion_chat/service/auth/auth_gate.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/screens/home.dart';
 

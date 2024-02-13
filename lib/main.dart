@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emotion_chat/auth/auth_gate.dart';
-import 'package:emotion_chat/auth/auth_service.dart';
+import 'package:emotion_chat/service/auth/auth_gate.dart';
+import 'package:emotion_chat/service/auth/auth_service.dart';
+import 'package:emotion_chat/service/auth/login_or_register.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
