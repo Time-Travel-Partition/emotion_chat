@@ -45,11 +45,11 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     EmotionButton(
-                      emotion: 'happy',
+                      emotion: 0,
                       image: Image.asset('images/happy.png'),
                     ),
                     EmotionButton(
-                      emotion: 'anxious',
+                      emotion: 1,
                       image: Image.asset('images/anxious.png'),
                     ),
                   ],
@@ -58,11 +58,11 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     EmotionButton(
-                      emotion: 'angry',
+                      emotion: 2,
                       image: Image.asset('images/angry.png'),
                     ),
                     EmotionButton(
-                      emotion: 'depressed',
+                      emotion: 3,
                       image: Image.asset('images/depressed.png'),
                     ),
                   ],

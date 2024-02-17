@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class EmotionTextField extends StatelessWidget {
   final String question;
   final String hintText;
+  final TextEditingController controller;
 
   const EmotionTextField({
     super.key,
     required this.question,
     required this.hintText,
+    required this.controller,
   });
 
   @override
@@ -23,6 +25,7 @@ class EmotionTextField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(20),
           child: TextField(
+            controller: controller,
             maxLines: 5,
             maxLength: 200,
             decoration: InputDecoration(
