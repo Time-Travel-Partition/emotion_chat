@@ -3,7 +3,7 @@ import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/user_tile.dart';
 import '../../../service/auth/auth_service.dart';
-import 'package:emotion_chat/screens/main/chat_tap/chat_page.dart';
+import 'package:emotion_chat/screens/main/chat_tab/chat_page.dart';
 
 // HomePage -> UserList
 class UserList extends StatelessWidget {
