@@ -1,6 +1,6 @@
-import 'package:emotion_chat/screens/main/home_tap/home.dart';
-import 'package:emotion_chat/screens/main/profile_tap/profile.dart';
-import 'package:emotion_chat/screens/main/chat_tap/user_list.dart';
+import 'package:emotion_chat/screens/main/home_tab/home.dart';
+import 'package:emotion_chat/screens/main/profile_tab/profile.dart';
+import 'package:emotion_chat/screens/main/chat_tab/user_list.dart';
 import 'package:flutter/material.dart';
 
 class BottonMenuBar extends StatefulWidget {

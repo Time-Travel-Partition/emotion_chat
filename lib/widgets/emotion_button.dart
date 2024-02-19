@@ -1,4 +1,4 @@
-import 'package:emotion_chat/screens/main/chat_tap/emotion_details.dart';
+import 'package:emotion_chat/screens/main/chat_tab/emotion_details.dart';
 import 'package:flutter/material.dart';
 
 class EmotionButton extends StatelessWidget {
