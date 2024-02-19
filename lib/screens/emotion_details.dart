@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/emotion_toggle_buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:emotion_chat/service/chat/emotion_details_service.dart';
 
 class EmotionDetails extends StatefulWidget {
   final int emotion;
@@ -26,9 +27,14 @@ class _EmotionDetailsState extends State<EmotionDetails> {
   bool showSubmitBtn = false;
   late List<bool> _selectedEmotionBtn;
   final TextEditingController _textEditingController = TextEditingController();
-  // final ScrollController _scrollController = ScrollController();
-  // final GlobalKey _textFieldKey = GlobalKey();
-  // final GlobalKey _submitBtnKey = GlobalKey();
+  final EmotionDetailsService emotionDetailsService = EmotionDetailsService();
+
+  onSubmit() async {
+    if (showSubmitBtn) {
+      await emotionDetailsService.addEmotionDetails(
+          emotion!, period!, knowCause!, background);
+    }
+  }
 
   setEmotion(int index) {
     setState(() {
@@ -76,14 +82,6 @@ class _EmotionDetailsState extends State<EmotionDetails> {
       showSubmitBtn = (period != null && knowCause == false) ||
           (period != null && knowCause == true && background.isNotEmpty);
     });
-
-    // if (showSubmitBtn) {
-    //   _scrollController.animateTo(
-    //     _scrollController.position.maxScrollExtent,
-    //     duration: const Duration(seconds: 1),
-    //     curve: Curves.easeOut,
-    //   );
-    // }
   }
 
   @override
@@ -126,7 +124,6 @@ class _EmotionDetailsState extends State<EmotionDetails> {
         ),
         body: Center(
           child: SingleChildScrollView(
-            // controller: _scrollController,
             child: Column(
               children: [
                 const SizedBox(height: 20),
@@ -155,21 +152,26 @@ class _EmotionDetailsState extends State<EmotionDetails> {
                   color: Colors.red[400],
                   onPressed: setKnowCause,
                 ),
-                // if (showTextField)
                 EmotionTextField(
-                  //key: _textFieldKey,
                   question: '감정이 일어나게 된 상황에 대해 알려주세요!',
                   hintText: '구체적으로 작성하면 상담에 도움이 됩니다 :)',
                   controller: _textEditingController,
                 ),
                 // if (showSubmitBtn)
                 ElevatedButton(
-                  //key: _submitBtnKey,
-                  onPressed: () {},
-                  style: const ButtonStyle(
-                    foregroundColor: MaterialStatePropertyAll(Colors.white),
-                    backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                    elevation: MaterialStatePropertyAll(0),
+                  onPressed: onSubmit,
+                  style: ButtonStyle(
+                    foregroundColor:
+                        const MaterialStatePropertyAll(Colors.white),
+                    backgroundColor:
+                        MaterialStateProperty.resolveWith((states) {
+                      if (showSubmitBtn) {
+                        return Colors.blue;
+                      } else {
+                        return Colors.grey;
+                      }
+                    }),
+                    elevation: const MaterialStatePropertyAll(0),
                   ),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
