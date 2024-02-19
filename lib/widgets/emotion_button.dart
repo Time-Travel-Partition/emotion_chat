@@ -2,7 +2,7 @@ import 'package:emotion_chat/screens/emotion_details.dart';
 import 'package:flutter/material.dart';
 
 class EmotionButton extends StatelessWidget {
-  final String emotion;
+  final int emotion;
   final Image image;
 
   const EmotionButton({

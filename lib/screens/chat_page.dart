@@ -11,8 +11,8 @@ class ChatPage extends StatelessWidget {
 
   ChatPage({
     super.key,
-    required this.receiverEmail,
-    required this.receiverID,
+    this.receiverEmail = 'EmotionBot@gmail.com', // 기본값 설정
+    this.receiverID = 'tnc3JRtbstPJTclrHLrN9kzWfeg2',
   });
 
   // text controller

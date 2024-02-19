@@ -115,7 +115,7 @@ class Profile extends StatelessWidget {
           ],
         ),
         bottomNavigationBar: const BottonMenuBar(
-          currentIndex: 1,
+          currentIndex: 2,
         ),
       ),
     );

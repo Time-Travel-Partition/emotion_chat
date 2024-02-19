@@ -1,5 +1,6 @@
 import 'package:emotion_chat/screens/home.dart';
 import 'package:emotion_chat/screens/profile.dart';
+import 'package:emotion_chat/screens/user_list.dart';
 import 'package:flutter/material.dart';
 
 class BottonMenuBar extends StatefulWidget {
@@ -39,6 +40,13 @@ class _BottonMenuBarState extends State<BottonMenuBar> {
       Navigator.push(
         context,
         MaterialPageRoute(
+          builder: (_) => UserList(),
+        ),
+      );
+    } else if (_currentIndex == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
           builder: (_) => const Profile(),
         ),
       );
@@ -61,6 +69,13 @@ class _BottonMenuBarState extends State<BottonMenuBar> {
             size: 48,
           ),
           label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.chat_rounded,
+            size: 44,
+          ),
+          label: 'ChatList',
         ),
         BottomNavigationBarItem(
           icon: Icon(

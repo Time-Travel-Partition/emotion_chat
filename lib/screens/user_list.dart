@@ -1,4 +1,5 @@
 import 'package:emotion_chat/service/chat/chat_service.dart';
+import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/user_tile.dart';
 import '../service/auth/auth_service.dart';
@@ -13,10 +14,15 @@ class UserList extends StatelessWidget {
   final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("User List")),
-      // drawer: const HomeDrawer(),
-      body: _buildUserList(),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text("User List")),
+        // drawer: const HomeDrawer(),
+        body: _buildUserList(),
+        bottomNavigationBar: const BottonMenuBar(
+          currentIndex: 1,
+        ),
+      ),
     );
   }
 

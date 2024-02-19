@@ -7,6 +7,7 @@ class EmotionToggleButtons extends StatefulWidget {
   final Color? fillColor;
   final Color? color;
   final List<bool>? selectedBtn;
+  final Function(int) onPressed;
 
   const EmotionToggleButtons(
       {super.key,
@@ -15,6 +16,7 @@ class EmotionToggleButtons extends StatefulWidget {
       required this.selectedBorderColor,
       required this.fillColor,
       required this.color,
+      required this.onPressed,
       this.selectedBtn});
 
   @override
@@ -56,6 +58,7 @@ class _EmotionToggleButtonsState extends State<EmotionToggleButtons> {
           ),
           onPressed: (int index) {
             setState(() {
+              widget.onPressed(index);
               for (int i = 0; i < _selectedBtn.length; i++) {
                 _selectedBtn[i] = i == index;
               }
