@@ -2,7 +2,7 @@ import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/home_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../widgets/profile_image_picker.dart';
+import '../../../widgets/profile_image_picker.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
