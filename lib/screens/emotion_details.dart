@@ -1,3 +1,4 @@
+import 'package:emotion_chat/screens/chat_page.dart';
 import 'package:emotion_chat/service/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/emotion_textfield.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,15 @@ class _EmotionDetailsState extends State<EmotionDetails> {
     if (showSubmitBtn) {
       await emotionDetailsService.addEmotionDetails(
           emotion!, period!, knowCause!, background);
+
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatPage(),
+          ),
+        );
+      }
     }
   }
 

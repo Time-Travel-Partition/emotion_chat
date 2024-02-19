@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emotion_chat/service/auth/auth_gate.dart';
 import 'package:emotion_chat/service/auth/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -13,15 +12,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  //firestore 샘플 데이터 쓰기 (테스트용)
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  await firestore.collection("cars").doc().set(
-    {
-      "brand": "Genesis",
-      "name": "G80",
-      "price": 7000,
-    },
-  );
   // dev/jaeho : App => ChangeNotifierProvider()
   runApp(ChangeNotifierProvider(
     create: (context) => AuthService(),

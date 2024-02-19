@@ -20,7 +20,13 @@ class EmotionDetailsService {
       timestamp: Timestamp.now(),
     );
 
+    List<String> ids = [currentUserID, 'tnc3JRtbstPJTclrHLrN9kzWfeg2']; // 임시
+    ids.sort();
+    String chatRoomID = ids.join('_');
+
     await _firestore
+        .collection("chat_rooms")
+        .doc(chatRoomID)
         .collection('EmotionDetails')
         .doc()
         .set(newEmotionDetails.toMap());
