@@ -56,17 +56,20 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      '이름',
-                      style: TextStyle(
-                        fontSize: 18,
+                    SizedBox(
+                      width: 50,
+                      child: Text(
+                        '이름',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                     SizedBox(
                       width: 20,
                     ),
-                    SizedBox(
-                      width: 300,
+                    Flexible(
+                      fit: FlexFit.tight,
                       child: TextField(
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
@@ -87,17 +90,20 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    const Text(
-                      '이메일',
-                      style: TextStyle(
-                        fontSize: 18,
+                    const SizedBox(
+                      width: 50,
+                      child: Text(
+                        '이메일',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                     const SizedBox(
                       width: 20,
                     ),
-                    SizedBox(
-                      width: 300,
+                    Flexible(
+                      fit: FlexFit.tight,
                       child: TextField(
                         readOnly: true,
                         decoration: InputDecoration(
