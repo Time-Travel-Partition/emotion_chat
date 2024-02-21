@@ -1,6 +1,7 @@
 import 'package:emotion_chat/screens/main/chat_tab/chat_page.dart';
 import 'package:emotion_chat/service/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/emotion_textfield.dart';
+import 'package:emotion_chat/widgets/incomplete_input_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/emotion_toggle_buttons.dart';
@@ -43,6 +44,12 @@ class _EmotionDetailsState extends State<EmotionDetails> {
           ),
         );
       }
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            const IncompleteInputAlert(message: '현재 감정 상태를 입력해주세요!'),
+      );
     }
   }
 
@@ -129,6 +136,15 @@ class _EmotionDetailsState extends State<EmotionDetails> {
             },
             icon: const Icon(Icons.arrow_back_rounded),
           ),
+          actions: [
+            TextButton(
+              onPressed: onSubmit,
+              child: const Text(
+                '제출',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+            ),
+          ],
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
@@ -166,30 +182,6 @@ class _EmotionDetailsState extends State<EmotionDetails> {
                   question: '감정이 일어나게 된 상황에 대해 알려주세요!',
                   hintText: '구체적으로 작성하면 상담에 도움이 됩니다 :)',
                   controller: _textEditingController,
-                ),
-                // if (showSubmitBtn)
-                ElevatedButton(
-                  onPressed: onSubmit,
-                  style: ButtonStyle(
-                    foregroundColor:
-                        const MaterialStatePropertyAll(Colors.white),
-                    backgroundColor:
-                        MaterialStateProperty.resolveWith((states) {
-                      if (showSubmitBtn) {
-                        return Colors.blue;
-                      } else {
-                        return Colors.grey;
-                      }
-                    }),
-                    elevation: const MaterialStatePropertyAll(0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Text(
-                      '제출',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
                 ),
                 const SizedBox(height: 20),
               ],
