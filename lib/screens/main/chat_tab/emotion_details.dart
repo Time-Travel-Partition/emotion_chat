@@ -89,7 +89,7 @@ class _EmotionDetailsState extends State<EmotionDetails> {
 
   setBackground(String text) {
     setState(() {
-      background = _textEditingController.text;
+      background = text;
       setShowSubmitBtn();
     });
   }
@@ -110,6 +110,14 @@ class _EmotionDetailsState extends State<EmotionDetails> {
     _textEditingController.addListener(() {
       setBackground(_textEditingController.text);
     });
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   void signOut() {

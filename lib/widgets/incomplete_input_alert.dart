@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class IncompleteInputAlert extends StatefulWidget {
+class IncompleteInputAlert extends StatelessWidget {
   final String message;
 
   const IncompleteInputAlert({
@@ -9,18 +9,13 @@ class IncompleteInputAlert extends StatefulWidget {
   });
 
   @override
-  State<IncompleteInputAlert> createState() => _IncompleteInputAlertState();
-}
-
-class _IncompleteInputAlertState extends State<IncompleteInputAlert> {
-  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Text(
-            widget.message,
+            message,
             style: const TextStyle(fontSize: 18),
           ),
         ),
