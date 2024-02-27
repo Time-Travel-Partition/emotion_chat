@@ -1,4 +1,4 @@
-import 'package:emotion_chat/service/auth/login_or_register.dart';
+import 'package:emotion_chat/services/auth/login_or_register.dart';
 import 'package:emotion_chat/screens/main/home_tab/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

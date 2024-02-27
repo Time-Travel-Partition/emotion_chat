@@ -1,6 +1,6 @@
 import 'package:emotion_chat/screens/main/profile_tab/settings_page.dart';
 import 'package:emotion_chat/screens/main/chat_tab/user_list.dart';
-import 'package:emotion_chat/service/auth/auth_service.dart';
+import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class HomeDrawer extends StatelessWidget {

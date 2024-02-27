@@ -1,27 +1,33 @@
 import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 
-class ProfileImagePicker extends StatefulWidget {
-  const ProfileImagePicker({
-    super.key,
-  });
+class ImageSelector extends StatefulWidget {
+  final VoidCallback onSelectImage; // VoidCallback은 매개변수 없이 호출되는 함수
+  final File? image;
+
+  const ImageSelector(
+      {super.key, required this.onSelectImage, required this.image});
 
   @override
-  State<ProfileImagePicker> createState() => _ProfileImagePickerState();
+  State<ImageSelector> createState() => _ImageSelectorState();
 }
 
-class _ProfileImagePickerState extends State<ProfileImagePicker> {
-  final ImagePicker _picker = ImagePicker();
+class _ImageSelectorState extends State<ImageSelector> {
+  File? pickedImage;
 
-  XFile? _profile;
+  @override
+  void initState() {
+    super.initState();
+    pickedImage = widget.image;
+  }
 
-  void _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
+  @override
+  void didUpdateWidget(ImageSelector oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("이미지는 정상적으로 저장되나 재빌드시 위젯을 다시 그리지 않는 버그");
+    if (widget.image != oldWidget.image) {
       setState(() {
-        _profile = pickedFile;
+        pickedImage = widget.image;
       });
     }
   }
@@ -33,12 +39,12 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          (_profile != null)
+          (pickedImage != null)
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image(
                     image: FileImage(
-                      File(_profile!.path),
+                      File(pickedImage!.path),
                     ),
                     fit: BoxFit.cover,
                     width: 200,
@@ -57,7 +63,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
             bottom: -20,
             right: -20,
             child: IconButton(
-              onPressed: _pickImage,
+              onPressed: widget.onSelectImage,
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.blue),
                 foregroundColor: MaterialStatePropertyAll(Colors.white),
