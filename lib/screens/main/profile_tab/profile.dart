@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:emotion_chat/screens/main/home_tab/home.dart';
 import 'package:emotion_chat/services/image/local_storage/profile_image_service.dart';
+import 'package:emotion_chat/services/user/user_service.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/home_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,8 +20,9 @@ class _ProfileState extends State<Profile> {
   late String email;
   late String name;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final TextEditingController _textEditingController = TextEditingController();
+  final UserService _userService = UserService();
   final ProfileImageService _profileImageService = ProfileImageService();
+  final TextEditingController _textEditingController = TextEditingController();
 
   File? image; // Nullable
 
@@ -41,6 +43,7 @@ class _ProfileState extends State<Profile> {
 
   onSubmit() async {
     await _profileImageService.saveImage(image, email);
+    await _userService.updateUserName(name);
 
     if (context.mounted) {
       Navigator.push(
@@ -56,6 +59,8 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     email = _auth.currentUser!.email!;
+    name = _auth.currentUser?.displayName ?? '';
+    // 로컬에 저장된 프로필 이미지 불러와 state에 저장
     _profileImageService.loadImage(email).then((loadedImage) {
       if (loadedImage != null) {
         setState(() {
@@ -63,6 +68,8 @@ class _ProfileState extends State<Profile> {
         });
       }
     });
+    _textEditingController.text = _auth.currentUser?.displayName ?? '';
+    // 이름 텍스트가 편집될 때마다 state 변경
     _textEditingController.addListener(() {
       setName(_textEditingController.text);
     });
