@@ -1,8 +1,8 @@
-# emotion_chat
+# Emotion Chat
 
 당신의 감정에 귀 기울이며, Emotion Chat (가제)
 
-## 플러터 폴더 구조
+## 폴더 구조
 ```
 📦lib
  ┣ 📂models
