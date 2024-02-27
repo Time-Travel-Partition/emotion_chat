@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emotion_chat/service/auth/auth_service.dart';
-import 'package:emotion_chat/service/chat/chat_service.dart';
+import 'package:emotion_chat/services/auth/auth_service.dart';
+import 'package:emotion_chat/services/chat/chat_service.dart';
 import 'package:emotion_chat/widgets/chat_bubble.dart';
 import 'package:emotion_chat/widgets/my_textfield.dart';
 import 'package:flutter/material.dart';

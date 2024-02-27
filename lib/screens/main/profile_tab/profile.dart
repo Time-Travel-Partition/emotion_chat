@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:emotion_chat/screens/main/home_tab/home.dart';
-import 'package:emotion_chat/service/image/local_storage/profile_image_service.dart';
+import 'package:emotion_chat/services/image/local_storage/profile_image_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/home_drawer.dart';
