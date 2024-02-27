@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:emotion_chat/screens/main/home_tab/home.dart';
+import 'package:emotion_chat/service/image/local_storage/profile_image_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/home_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import '../../../widgets/profile_image_picker.dart';
 
 class Profile extends StatefulWidget {
@@ -21,6 +21,7 @@ class _ProfileState extends State<Profile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _textEditingController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  final ProfileImageService _profileImageService = ProfileImageService();
 
   File? image; // Nullable
 
@@ -34,22 +35,6 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  Future<void> _saveImage() async {
-    final appDir = await getApplicationDocumentsDirectory();
-    final localImagePath = '${appDir.path}/profile_image.png';
-
-    if (image != null) {
-      await image!.copy(localImagePath);
-    }
-  }
-
-  Future<File?> _loadImage() async {
-    final appDir = await getApplicationDocumentsDirectory();
-    final localImagePath = '${appDir.path}/profile_image.png';
-
-    return File(localImagePath);
-  }
-
   setName(String text) {
     setState(() {
       name = text;
@@ -57,7 +42,7 @@ class _ProfileState extends State<Profile> {
   }
 
   onSubmit() async {
-    await _saveImage();
+    await _profileImageService.saveImage(image, email);
 
     if (context.mounted) {
       Navigator.push(
@@ -73,7 +58,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     email = _auth.currentUser!.email!;
-    _loadImage().then((loadedImage) {
+    _profileImageService.loadImage(email).then((loadedImage) {
       if (loadedImage != null) {
         setState(() {
           image = loadedImage;
@@ -83,14 +68,6 @@ class _ProfileState extends State<Profile> {
     _textEditingController.addListener(() {
       setName(_textEditingController.text);
     });
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    _textEditingController.dispose();
-    super.dispose();
   }
 
   @override
