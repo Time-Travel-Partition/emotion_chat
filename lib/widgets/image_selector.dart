@@ -1,18 +1,18 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-class ProfileImagePicker extends StatefulWidget {
-  final VoidCallback onPickImage; // VoidCallback은 매개변수 없이 호출되는 함수
+class ImageSelector extends StatefulWidget {
+  final VoidCallback onSelectImage; // VoidCallback은 매개변수 없이 호출되는 함수
   final File? image;
 
-  const ProfileImagePicker(
-      {super.key, required this.onPickImage, required this.image});
+  const ImageSelector(
+      {super.key, required this.onSelectImage, required this.image});
 
   @override
-  State<ProfileImagePicker> createState() => _ProfileImagePickerState();
+  State<ImageSelector> createState() => _ImageSelectorState();
 }
 
-class _ProfileImagePickerState extends State<ProfileImagePicker> {
+class _ImageSelectorState extends State<ImageSelector> {
   File? pickedImage;
 
   @override
@@ -22,7 +22,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
   }
 
   @override
-  void didUpdateWidget(ProfileImagePicker oldWidget) {
+  void didUpdateWidget(ImageSelector oldWidget) {
     super.didUpdateWidget(oldWidget);
     print("이미지는 정상적으로 저장되나 재빌드시 위젯을 다시 그리지 않는 버그");
     if (widget.image != oldWidget.image) {
@@ -63,7 +63,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
             bottom: -20,
             right: -20,
             child: IconButton(
-              onPressed: widget.onPickImage,
+              onPressed: widget.onSelectImage,
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.blue),
                 foregroundColor: MaterialStatePropertyAll(Colors.white),

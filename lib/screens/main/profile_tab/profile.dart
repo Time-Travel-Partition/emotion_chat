@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:emotion_chat/screens/main/home_tab/home.dart';
 import 'package:emotion_chat/services/image/local_storage/profile_image_service.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/home_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../widgets/profile_image_picker.dart';
+import '../../../utils/image_picker_utils.dart';
+import '../../../widgets/image_selector.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -20,17 +20,15 @@ class _ProfileState extends State<Profile> {
   late String name;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _textEditingController = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
   final ProfileImageService _profileImageService = ProfileImageService();
 
   File? image; // Nullable
 
-  void _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
+  setImage() async {
+    File? pickedFile = await ImagePickerUtils.pickImage();
     if (pickedFile != null) {
       setState(() {
-        image = File(pickedFile.path);
+        image = pickedFile;
       });
     }
   }
@@ -98,9 +96,9 @@ class _ProfileState extends State<Profile> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ProfileImagePicker(
+              ImageSelector(
                 image: image,
-                onPickImage: _pickImage,
+                onSelectImage: setImage,
               ),
               Padding(
                 padding:
