@@ -3,6 +3,7 @@
 당신의 감정에 귀 기울이며, Emotion Chat (가제)
 
 ## 플러터 폴더 구조
+```
 📦lib
  ┣ 📂models
  ┣ 📂screens
@@ -20,6 +21,7 @@
  ┃ ┃ ┗ 📂local_storage
  ┣ 📂themes
  ┗ 📂utils
+ ```
 
 - models : 애플리케이션의 데이터 모델을 정의합니다.
 - screens : 사용자에게 노출되는 화면들을 관리합니다.
