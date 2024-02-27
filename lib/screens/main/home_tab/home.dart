@@ -27,49 +27,49 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.blue,
         ),
         drawer: const HomeDrawer(),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Choose your feelings 🙂',
-              style: TextStyle(
-                fontSize: 20,
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const Text(
+                'Choose your feelings 🙂',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 80, // 여백
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    EmotionButton(
-                      emotion: 0,
-                      image: Image.asset('images/happy.png'),
-                    ),
-                    EmotionButton(
-                      emotion: 1,
-                      image: Image.asset('images/anxious.png'),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    EmotionButton(
-                      emotion: 2,
-                      image: Image.asset('images/angry.png'),
-                    ),
-                    EmotionButton(
-                      emotion: 3,
-                      image: Image.asset('images/depressed.png'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      EmotionButton(
+                        emotion: 0,
+                        image: Image.asset('images/happy.png'),
+                      ),
+                      EmotionButton(
+                        emotion: 1,
+                        image: Image.asset('images/anxious.png'),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      EmotionButton(
+                        emotion: 2,
+                        image: Image.asset('images/angry.png'),
+                      ),
+                      EmotionButton(
+                        emotion: 3,
+                        image: Image.asset('images/depressed.png'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
         bottomNavigationBar: const BottonMenuBar(
           currentIndex: 0,

@@ -66,21 +66,21 @@ class _BottonMenuBarState extends State<BottonMenuBar> {
         BottomNavigationBarItem(
           icon: Icon(
             Icons.home_rounded,
-            size: 48,
+            size: 44,
           ),
           label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.chat_rounded,
-            size: 44,
+            size: 40,
           ),
           label: 'ChatList',
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.person_rounded,
-            size: 48,
+            size: 44,
           ),
           label: 'Profile',
         ),

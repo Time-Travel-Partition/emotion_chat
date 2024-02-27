@@ -27,7 +27,7 @@ class EmotionButton extends StatelessWidget {
         );
       },
       child: Container(
-        margin: const EdgeInsets.all(17),
+        margin: const EdgeInsets.symmetric(vertical: 15),
         child: SizedBox(
           height: 100,
           width: 100,
