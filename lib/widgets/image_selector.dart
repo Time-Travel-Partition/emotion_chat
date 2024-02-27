@@ -35,7 +35,7 @@ class _ImageSelectorState extends State<ImageSelector> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 70, bottom: 30),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: Stack(
         clipBehavior: Clip.none,
         children: [

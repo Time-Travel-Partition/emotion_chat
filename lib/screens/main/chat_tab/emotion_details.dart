@@ -159,6 +159,7 @@ class _EmotionDetailsState extends State<EmotionDetails> {
         body: Center(
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 20),
                 EmotionToggleButtons(
@@ -191,7 +192,6 @@ class _EmotionDetailsState extends State<EmotionDetails> {
                   hintText: '구체적으로 작성하면 상담에 도움이 됩니다 :)',
                   controller: _textEditingController,
                 ),
-                const SizedBox(height: 20),
               ],
             ),
           ),
