@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/image_picker_utils.dart';
 import '../../../widgets/image_selector.dart';
-import 'package:emotion_chat/utils/globals.dart' as globals;
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -24,7 +23,6 @@ class _ProfileState extends State<Profile> {
   final UserService _userService = UserService();
   final ProfileImageService _profileImageService = ProfileImageService();
   final TextEditingController _textEditingController = TextEditingController();
-  static File? displayedImage;
   File? image; // Nullable
 
   setImage() async {
@@ -46,10 +44,6 @@ class _ProfileState extends State<Profile> {
     await _profileImageService.saveImage(image, email);
     await _userService.updateUserName(name);
 
-    setState(() {
-      displayedImage = image; // 사용자가 선택한 이미지를 displayedImage에 할당
-    });
-
     if (context.mounted) {
       Navigator.push(
         context,
@@ -69,6 +63,8 @@ class _ProfileState extends State<Profile> {
     _profileImageService.loadImage(email).then((loadedImage) {
       if (loadedImage != null) {
         setState(() {
+          PaintingBinding.instance.imageCache.clear();
+          PaintingBinding.instance.imageCache.clearLiveImages();
           image = loadedImage;
         });
       }
@@ -109,12 +105,8 @@ class _ProfileState extends State<Profile> {
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              // ImageSelector(
-              //   image: image,
-              //   onSelectImage: setImage,
-              // ),
               ImageSelector(
-                image: displayedImage ?? image,
+                image: image,
                 onSelectImage: setImage,
               ),
               Column(
