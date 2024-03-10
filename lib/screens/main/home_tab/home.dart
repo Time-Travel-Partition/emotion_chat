@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
               const Text(
                 'Choose your feelings 🙂',
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                 ),
               ),
               Column(

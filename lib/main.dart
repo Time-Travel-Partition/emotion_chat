@@ -24,9 +24,14 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-        debugShowCheckedModeBanner: false, // dev/jaeho => 추가
-        home: AuthGate() // main : Landing(), dev/jaeho : AuthGate()
-        );
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus(); // 키보드 닫기 이벤트
+      },
+      child: const MaterialApp(
+          debugShowCheckedModeBanner: false, // dev/jaeho => 추가
+          home: AuthGate() // main : Landing(), dev/jaeho : AuthGate()
+          ),
+    );
   }
 }
