@@ -3,7 +3,7 @@ import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/emotion_textfield.dart';
 import 'package:emotion_chat/widgets/incomplete_input_alert.dart';
 import 'package:flutter/material.dart';
-import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
+import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/emotion_toggle_buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:emotion_chat/services/chat/emotion_details_service.dart';

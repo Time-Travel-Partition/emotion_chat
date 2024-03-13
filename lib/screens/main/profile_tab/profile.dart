@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:emotion_chat/screens/main/home_tab/home.dart';
 import 'package:emotion_chat/services/image/local_storage/profile_image_service.dart';
 import 'package:emotion_chat/services/user/user_service.dart';
-import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
-import 'package:emotion_chat/widgets/home_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
+import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/image_picker_utils.dart';
@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
             ),
           ],
         ),
-        drawer: const HomeDrawer(),
+        drawer: const SideDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(30.0),
           child: SingleChildScrollView(

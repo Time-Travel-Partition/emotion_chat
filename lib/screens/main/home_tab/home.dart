@@ -1,7 +1,7 @@
-import 'package:emotion_chat/widgets/home_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
-import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
+import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
           foregroundColor: Colors.white,
           backgroundColor: Colors.blue,
         ),
-        drawer: const HomeDrawer(),
+        drawer: const SideDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
