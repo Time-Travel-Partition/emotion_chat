@@ -1,5 +1,6 @@
 import 'package:emotion_chat/services/auth/auth_gate.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
+import 'package:emotion_chat/themes/light_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -24,9 +25,16 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return GestureDetector(
+      onTap: () {
+        // 바깥을 터치하면 키보드 닫음
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: MaterialApp(
+        theme: lightMode,
         debugShowCheckedModeBanner: false, // dev/jaeho => 추가
-        home: AuthGate() // main : Landing(), dev/jaeho : AuthGate()
-        );
+        home: const AuthGate(),
+      ),
+    );
   }
 }

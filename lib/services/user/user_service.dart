@@ -10,7 +10,7 @@ class UserService {
 
     await currentUser.updateDisplayName(name);
     await _firestore
-        .collection("Users")
+        .collection('Users')
         .doc(currentUser.uid)
         .update({'name': name});
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class MyTextField extends StatelessWidget {
+class AuthTextField extends StatelessWidget {
   final String hintText; // final var은 반드시 초기화 되어야함
   final bool obscureText;
   final TextEditingController controller;
 
-  const MyTextField({
+  const AuthTextField({
     super.key,
     required this.hintText,
     required this.obscureText,
@@ -22,23 +22,19 @@ class MyTextField extends StatelessWidget {
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              // color: Theme.of(context).colorScheme.primary
-              color: Colors.grey.shade500,
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              // color: Theme.of(context).colorScheme.primary
-              color: Colors.grey.shade500,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          // fillColor: Theme.of(context).colorScheme.secondary,
-          fillColor: Colors.grey.shade200,
+          fillColor: Theme.of(context).colorScheme.background,
           filled: true,
           hintText: hintText,
           hintStyle: TextStyle(
-            // color: Theme.of(context).colorScheme.primary
-            color: Colors.grey.shade500,
+            color: Theme.of(context).colorScheme.inversePrimary,
           ),
         ),
       ),

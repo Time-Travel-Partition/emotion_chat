@@ -44,3 +44,4 @@ app.*.map.json
 
 *.env
 lib/env/env.g.dart
+ios/Runner.xcodeproj/project.pbxproj
