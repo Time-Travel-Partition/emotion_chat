@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/services/chat/chat_service.dart';
 import 'package:emotion_chat/widgets/chat_bubble.dart';
-import 'package:emotion_chat/widgets/my_textfield.dart';
+import 'package:emotion_chat/widgets/auth_textfield.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
@@ -60,10 +60,10 @@ class ChatPage extends StatelessWidget {
         builder: (context, snapshot) {
           //error
           if (snapshot.hasError) {
-            return const Text("errors");
+            return const Text('errors');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("loading");
+            return const Text('loading');
           }
 
           return ListView(
@@ -78,7 +78,7 @@ class ChatPage extends StatelessWidget {
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     // 현재 로그인한 유저와 동일여부 파악
-    bool isCurrentUser = data["senderID"] == _authService.getCurrentUser()!.uid;
+    bool isCurrentUser = data['senderID'] == _authService.getCurrentUser()!.uid;
 
     // 현재 로그인한 유저의 메시지는 오른쪽으로 정렬 아니면 왼쪽정렬.
     var alignment =
@@ -90,7 +90,7 @@ class ChatPage extends StatelessWidget {
         crossAxisAlignment:
             isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          ChatBubble(message: data["message"], isCurrentUser: isCurrentUser),
+          ChatBubble(message: data['message'], isCurrentUser: isCurrentUser),
         ],
       ),
     );
@@ -104,9 +104,9 @@ class ChatPage extends StatelessWidget {
         children: [
           //텍스트 필드가 대부분의 공간을 차지하도록 설정
           Expanded(
-            child: MyTextField(
+            child: AuthTextField(
               controller: _messageController,
-              hintText: "Type a message",
+              hintText: 'Type a message',
               obscureText: false,
             ),
           ),

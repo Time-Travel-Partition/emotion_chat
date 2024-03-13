@@ -8,7 +8,7 @@ class ChatService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   // get user stream
   Stream<List<Map<String, dynamic>>> getUserStream() {
-    return _firestore.collection("Users").snapshots().map((snapshot) {
+    return _firestore.collection('Users').snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         final user = doc.data();
 
@@ -40,9 +40,9 @@ class ChatService {
 
     // add new message to database
     await _firestore
-        .collection("chat_rooms")
+        .collection('ChatRooms')
         .doc(chatRoomID)
-        .collection("messages")
+        .collection('Messages')
         .add(newMessage.toMap());
   }
 
@@ -54,10 +54,10 @@ class ChatService {
     String chatRoomID = ids.join('_');
 
     return _firestore
-        .collection("chat_rooms")
+        .collection('ChatRooms')
         .doc(chatRoomID)
-        .collection("messages")
-        .orderBy("timestamp", descending: false)
+        .collection('Messages')
+        .orderBy('timestamp', descending: false)
         .snapshots();
   }
 }

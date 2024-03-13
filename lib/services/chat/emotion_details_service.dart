@@ -25,7 +25,7 @@ class EmotionDetailsService {
     String chatRoomID = ids.join('_');
 
     await _firestore
-        .collection('chat_rooms')
+        .collection('ChatRooms')
         .doc(chatRoomID)
         .collection('EmotionDetails')
         .doc()
