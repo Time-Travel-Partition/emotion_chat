@@ -1,5 +1,7 @@
 import 'package:emotion_chat/services/chat/chat_service.dart';
-import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
+import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
+import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/user_tile.dart';
 import '../../../services/auth/auth_service.dart';
@@ -16,8 +18,11 @@ class UserList extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text("User List")),
-        // drawer: const HomeDrawer(),
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: TopAppBar(titleText: 'Chat'),
+        ),
+        drawer: const SideDrawer(),
         body: _buildUserList(),
         bottomNavigationBar: const BottonMenuBar(
           currentIndex: 1,
@@ -33,12 +38,12 @@ class UserList extends StatelessWidget {
         builder: (context, snapshot) {
           //error
           if (snapshot.hasError) {
-            return const Text("Error");
+            return const Text('Error');
           }
 
           //loading ..
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text("Loading..");
+            return const Text('Loading..');
           }
           //return list view
           return ListView(
@@ -54,16 +59,16 @@ class UserList extends StatelessWidget {
   Widget _buildUserListItem(
       Map<String, dynamic> userData, BuildContext context) {
     //display all users except current user
-    if (userData["email"] != _authService.getCurrentUser()!.email) {
+    if (userData['email'] != _authService.getCurrentUser()!.email) {
       return UserTile(
-        text: userData["email"],
+        text: userData['email'],
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
-                receiverEmail: userData["email"],
-                receiverID: userData["uid"],
+                receiverEmail: userData['email'],
+                receiverID: userData['uid'],
               ),
             ),
           );

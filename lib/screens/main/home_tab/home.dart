@@ -1,7 +1,8 @@
-import 'package:emotion_chat/widgets/home_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/emotion_button.dart';
-import 'package:emotion_chat/widgets/bottom_menu_bar.dart';
+import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,17 +17,11 @@ class _HomeState extends State<Home> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text(
-            'Home',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: TopAppBar(titleText: 'Home'),
         ),
-        drawer: const HomeDrawer(),
+        drawer: const SideDrawer(),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
