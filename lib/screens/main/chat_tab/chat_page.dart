@@ -3,6 +3,7 @@ import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/services/chat/chat_service.dart';
 import 'package:emotion_chat/widgets/chat_bubble.dart';
 import 'package:emotion_chat/widgets/auth_textfield.dart';
+import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
@@ -37,11 +38,9 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(receiverEmail),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey,
-        elevation: 0,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child: TopAppBar(titleText: receiverEmail),
       ),
       body: Column(children: [
         //display all messages

@@ -1,6 +1,7 @@
 import 'package:emotion_chat/services/chat/chat_service.dart';
 import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/user_tile.dart';
 import '../../../services/auth/auth_service.dart';
@@ -17,15 +18,9 @@ class UserList extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Chat',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(60),
+          child: TopAppBar(titleText: 'Chat'),
         ),
         drawer: const SideDrawer(),
         body: _buildUserList(),

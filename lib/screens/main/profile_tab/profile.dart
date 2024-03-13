@@ -4,6 +4,7 @@ import 'package:emotion_chat/services/image/local_storage/profile_image_service.
 import 'package:emotion_chat/services/user/user_service.dart';
 import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/image_picker_utils.dart';
@@ -81,24 +82,10 @@ class _ProfileState extends State<Profile> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text(
-            'Profile',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
-          actions: [
-            TextButton(
-              onPressed: onSubmit,
-              child: const Text(
-                '확인',
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ),
-          ],
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: TopAppBar(
+              titleText: 'Profile', buttonText: '확인', onTap: onSubmit),
         ),
         drawer: const SideDrawer(),
         body: Padding(

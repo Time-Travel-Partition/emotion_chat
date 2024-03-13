@@ -2,6 +2,8 @@ import 'package:emotion_chat/screens/main/chat_tab/chat_page.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/emotion_textfield.dart';
 import 'package:emotion_chat/widgets/incomplete_input_alert.dart';
+import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
+import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/emotion_toggle_buttons.dart';
@@ -131,31 +133,14 @@ class _EmotionDetailsState extends State<EmotionDetails> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text(
-            'Before Consultation',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_rounded),
-          ),
-          actions: [
-            TextButton(
-              onPressed: onSubmit,
-              child: const Text(
-                '제출',
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ),
-          ],
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.blue,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: TopAppBar(
+              titleText: 'Before Consultation',
+              buttonText: '제출',
+              onTap: onSubmit),
         ),
+        drawer: const SideDrawer(),
         body: Center(
           child: SingleChildScrollView(
             child: Column(
