@@ -22,7 +22,7 @@ class AuthService extends ChangeNotifier {
 
       // save user info if it doesn't already exist
       _firestore
-          .collection("Users")
+          .collection('Users')
           .doc(userCredential.user!.uid)
           .set({'uid': userCredential.user!.uid, 'email': email});
 
@@ -45,7 +45,7 @@ class AuthService extends ChangeNotifier {
       );
 
       // save user info in a seperate doc
-      _firestore.collection("Users").doc(userCredential.user!.uid).set({
+      _firestore.collection('Users').doc(userCredential.user!.uid).set({
         'uid': userCredential.user!.uid,
         'email': email,
       });

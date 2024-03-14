@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/services/chat/chat_service.dart';
-import 'package:emotion_chat/widgets/chat_bubble.dart';
-import 'package:emotion_chat/widgets/auth_textfield.dart';
+import 'package:emotion_chat/widgets/list_item/chat_bubble.dart';
+import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -42,35 +42,37 @@ class ChatPage extends StatelessWidget {
         preferredSize: const Size.fromHeight(60),
         child: TopAppBar(titleText: receiverEmail),
       ),
-      body: Column(children: [
-        //display all messages
-        Expanded(child: _buildMessageList()),
+      body: Column(
+        children: [
+          //display all messages
+          Expanded(child: _buildMessageList()),
 
-        //user input
-        _buildUserInput(),
-      ]),
+          //user input
+          _buildUserInput(),
+        ],
+      ),
     );
   }
 
   Widget _buildMessageList() {
     String senderID = _authService.getCurrentUser()!.uid;
     return StreamBuilder(
-        stream: _chatService.getMessages(receiverID, senderID),
-        builder: (context, snapshot) {
-          //error
-          if (snapshot.hasError) {
-            return const Text('errors');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Text('loading');
-          }
-
-          return ListView(
-            children: snapshot.data!.docs
-                .map((doc) => _buildMessageItem(doc))
-                .toList(),
-          );
-        });
+      stream: _chatService.getMessages(receiverID, senderID),
+      builder: (context, snapshot) {
+        //error
+        if (snapshot.hasError) {
+          return const Text('errors');
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('loading');
+        }
+        // 메시지 전송시 자동으로 스크롤 최하단으로 내리는 것 필요
+        return ListView(
+          children:
+              snapshot.data!.docs.map((doc) => _buildMessageItem(doc)).toList(),
+        );
+      },
+    );
   }
 
   // build message Item
@@ -98,7 +100,7 @@ class ChatPage extends StatelessWidget {
   // build message input
   Widget _buildUserInput() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 50.0),
+      padding: const EdgeInsets.only(top: 8, bottom: 40.0),
       child: Row(
         children: [
           //텍스트 필드가 대부분의 공간을 차지하도록 설정
@@ -113,7 +115,7 @@ class ChatPage extends StatelessWidget {
           //send button
           Container(
             decoration: const BoxDecoration(
-              color: Colors.green,
+              color: Colors.blue,
               shape: BoxShape.circle,
             ),
             margin: const EdgeInsets.only(right: 25),

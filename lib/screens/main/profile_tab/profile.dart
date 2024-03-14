@@ -8,7 +8,7 @@ import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../utils/image_picker_utils.dart';
-import '../../../widgets/image_selector.dart';
+import '../../../widgets/image/image_selector.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -79,124 +79,121 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: TopAppBar(
-              titleText: 'Profile', buttonText: '확인', onTap: onSubmit),
-        ),
-        drawer: const SideDrawer(),
-        body: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                ImageSelector(
-                  image: image,
-                  onSelectImage: setImage,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const SizedBox(
-                            width: 50,
-                            child: Text(
-                              '이름',
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60),
+        child:
+            TopAppBar(titleText: 'Profile', buttonText: '확인', onTap: onSubmit),
+      ),
+      drawer: const SideDrawer(),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ImageSelector(
+                image: image,
+                onSelectImage: setImage,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const SizedBox(
+                          width: 50,
+                          child: Text(
+                            '이름',
+                            style: TextStyle(
+                              fontSize: 18,
                             ),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Flexible(
-                            fit: FlexFit.tight,
-                            child: TextField(
-                              controller: _textEditingController,
-                              decoration: const InputDecoration(
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.blue,
-                                  ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: TextField(
+                            controller: _textEditingController,
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.blue,
                                 ),
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const SizedBox(
-                            width: 50,
-                            child: Text(
-                              '이메일',
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Flexible(
-                            fit: FlexFit.tight,
-                            child: TextField(
-                              readOnly: true,
-                              decoration: InputDecoration(
-                                hintText: email,
-                                focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 25),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: const ButtonStyle(
-                      foregroundColor: MaterialStatePropertyAll(Colors.white),
-                      backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                      elevation: MaterialStatePropertyAll(0),
-                    ),
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      child: Text(
-                        '비밀번호 변경',
-                        style: TextStyle(fontSize: 16),
-                      ),
+                        )
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        const SizedBox(
+                          width: 50,
+                          child: Text(
+                            '이메일',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: TextField(
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              hintText: email,
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: const ButtonStyle(
+                    foregroundColor: MaterialStatePropertyAll(Colors.white),
+                    backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                    elevation: MaterialStatePropertyAll(0),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text(
+                      '비밀번호 변경',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
-        bottomNavigationBar: const BottonMenuBar(
-          currentIndex: 2,
-        ),
+      ),
+      bottomNavigationBar: const BottonMenuBar(
+        currentIndex: 2,
       ),
     );
   }
