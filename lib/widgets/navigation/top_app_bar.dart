@@ -21,8 +21,8 @@ class TopAppBar extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       ),
-      foregroundColor: Colors.white,
-      backgroundColor: Colors.blue,
+      foregroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       actions: [
         if (buttonText != null && onTap != null)
           TextButton(

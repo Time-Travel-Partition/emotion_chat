@@ -30,7 +30,8 @@ class ImageSelector extends StatelessWidget {
               : Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.blue),
+                    border: Border.all(
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                   width: 200,
                   height: 200,
@@ -43,11 +44,6 @@ class ImageSelector extends StatelessWidget {
               style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.blue),
                 foregroundColor: MaterialStatePropertyAll(Colors.white),
-                side: MaterialStatePropertyAll(
-                  BorderSide(
-                    color: Colors.white,
-                  ),
-                ),
               ),
               icon: const Icon(Icons.camera_alt_rounded),
             ),

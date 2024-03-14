@@ -1,5 +1,5 @@
-import 'package:emotion_chat/screens/auth/login_page.dart';
-import 'package:emotion_chat/screens/auth/register_page.dart';
+import 'package:emotion_chat/screens/auth/login_screen.dart';
+import 'package:emotion_chat/screens/auth/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginOrRegister extends StatefulWidget {
@@ -23,11 +23,11 @@ class _LoginOrRegisterState extends State<LoginOrRegister> {
   @override
   Widget build(BuildContext context) {
     if (showLoginPage) {
-      return LoginPage(
+      return LoginScreen(
         onTap: togglePages,
       );
     } else {
-      return RegisterPage(
+      return RegisterScreen(
         onTap: togglePages,
       );
     }
