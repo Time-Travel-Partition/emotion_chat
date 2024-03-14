@@ -3,7 +3,7 @@ import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:emotion_chat/widgets/user_tile.dart';
+import 'package:emotion_chat/widgets/list_item/user_tile.dart';
 import '../../../services/auth/auth_service.dart';
 import 'package:emotion_chat/screens/main/chat_tab/chat_page.dart';
 
@@ -16,17 +16,15 @@ class UserList extends StatelessWidget {
   final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: const PreferredSize(
-          preferredSize: Size.fromHeight(60),
-          child: TopAppBar(titleText: 'Chat'),
-        ),
-        drawer: const SideDrawer(),
-        body: _buildUserList(),
-        bottomNavigationBar: const BottonMenuBar(
-          currentIndex: 1,
-        ),
+    return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(60),
+        child: TopAppBar(titleText: 'Chat'),
+      ),
+      drawer: const SideDrawer(),
+      body: _buildUserList(),
+      bottomNavigationBar: const BottonMenuBar(
+        currentIndex: 1,
       ),
     );
   }

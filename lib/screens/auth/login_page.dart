@@ -1,6 +1,6 @@
 import 'package:emotion_chat/services/auth/auth_service.dart';
-import 'package:emotion_chat/widgets/auth_button.dart';
-import 'package:emotion_chat/widgets/auth_textfield.dart';
+import 'package:emotion_chat/widgets/button/auth_button.dart';
+import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:emotion_chat/themes/light_mode.dart';
 import 'package:flutter/material.dart';
 
@@ -37,81 +37,78 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightMode,
-      home: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //logo
-            Icon(
-              Icons.message,
-              size: 60,
-              color: Theme.of(context).primaryColor,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          //logo
+          Icon(
+            Icons.message,
+            size: 60,
+            color: Theme.of(context).primaryColor,
+          ),
+          const SizedBox(
+            height: 50,
+          ),
 
-            // welcom back message
-            Text(
-              '환영합니다 감정 챗봇과 자유롭게 대화해요 :)',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 16,
+          // welcom back message
+          Text(
+            '환영합니다 감정 챗봇과 자유롭게 대화해요',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 25),
+
+          // email textfield
+          AuthTextField(
+            hintText: '이메일',
+            obscureText: false,
+            controller: _emailController,
+          ),
+          const SizedBox(height: 10),
+
+          // pw textfield
+          AuthTextField(
+            hintText: '비밀번호',
+            obscureText: true,
+            controller: _pwController,
+          ),
+          const SizedBox(height: 25),
+
+          // login button
+          AuthButton(
+            text: '로그인',
+            onTap: () => login(context),
+          ),
+          const SizedBox(height: 25),
+
+          // register now
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '아직 회원이 아니신가요? ',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                ),
               ),
-            ),
-            const SizedBox(height: 25),
-
-            // email textfield
-            AuthTextField(
-              hintText: '이메일',
-              obscureText: false,
-              controller: _emailController,
-            ),
-            const SizedBox(height: 10),
-
-            // pw textfield
-            AuthTextField(
-              hintText: '비밀번호',
-              obscureText: true,
-              controller: _pwController,
-            ),
-            const SizedBox(height: 25),
-
-            // login button
-            AuthButton(
-              text: '로그인',
-              onTap: () => login(context),
-            ),
-            const SizedBox(height: 25),
-
-            // register now
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  '아직 회원이 아니신가요? ',
+              GestureDetector(
+                onTap: onTap,
+                child: Text(
+                  '회원가입',
                   style: TextStyle(
-                    color: Theme.of(context).colorScheme.inversePrimary,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
-                GestureDetector(
-                  onTap: onTap,
-                  child: Text(
-                    '회원가입',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
