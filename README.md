@@ -20,6 +20,12 @@
  ┃ ┃ ┣ 📂home_tab
  ┃ ┃ ┗ 📂profile_tab
  ┣ 📂widgets
+ ┃ ┣ 📂button
+ ┃ ┣ 📂image
+ ┃ ┣ 📂list_item
+ ┃ ┣ 📂modal
+ ┃ ┣ 📂navigation
+ ┃ ┗ 📂textfield
  ┣ 📂services
  ┃ ┣ 📂auth
  ┃ ┣ 📂chat
