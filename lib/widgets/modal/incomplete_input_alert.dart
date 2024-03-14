@@ -25,8 +25,10 @@ class IncompleteInputAlert extends StatelessWidget {
           Navigator.pop(context);
         },
         style: ButtonStyle(
-          foregroundColor: const MaterialStatePropertyAll(Colors.white),
-          backgroundColor: MaterialStateProperty.all(Colors.blue),
+          foregroundColor: MaterialStatePropertyAll(
+              Theme.of(context).colorScheme.background),
+          backgroundColor:
+              MaterialStateProperty.all(Theme.of(context).colorScheme.primary),
           elevation: const MaterialStatePropertyAll(0),
         ),
         child: const Text(

@@ -1,4 +1,4 @@
-import 'package:emotion_chat/screens/main/chat_tab/chat_page.dart';
+import 'package:emotion_chat/screens/main/chat_tab/chat_screen.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/textfield/emotion_textfield.dart';
 import 'package:emotion_chat/widgets/modal/incomplete_input_alert.dart';
@@ -10,45 +10,58 @@ import 'package:emotion_chat/widgets/button/emotion_toggle_buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:emotion_chat/services/chat/emotion_details_service.dart';
 
-class EmotionDetails extends StatefulWidget {
+class BeforeConsultationScreen extends StatefulWidget {
   final int emotion;
 
-  const EmotionDetails({
+  const BeforeConsultationScreen({
     super.key,
     required this.emotion,
   });
 
   @override
-  State<EmotionDetails> createState() => _EmotionDetailsState();
+  State<BeforeConsultationScreen> createState() =>
+      _BeforeConsultationScreenState();
 }
 
-class _EmotionDetailsState extends State<EmotionDetails> {
-  int? emotion;
+class _BeforeConsultationScreenState extends State<BeforeConsultationScreen> {
+  late int emotion;
   String? period;
   bool? knowCause;
   String background = '';
-  bool showTextField = false;
-  bool showSubmitBtn = false;
+
+  bool canSubmit = false;
   bool isLoading = false;
-  late List<bool> _selectedEmotionBtn;
+
   final TextEditingController _textEditingController = TextEditingController();
-  final EmotionDetailsService emotionDetailsService = EmotionDetailsService();
+  final EmotionDetailsService _emotionDetailsService = EmotionDetailsService();
+
+  @override
+  void initState() {
+    super.initState();
+    emotion = widget.emotion;
+    _textEditingController.addListener(() {
+      setBackground(_textEditingController.text);
+    });
+  }
 
   onSubmit() async {
-    if (showSubmitBtn) {
+    if (canSubmit) {
       setState(() {
         isLoading = true;
       });
-      await emotionDetailsService.addEmotionDetails(
-          emotion!, period!, knowCause!, background);
+
+      await _emotionDetailsService.addEmotionDetails(
+          emotion, period!, knowCause!, background);
+
       setState(() {
         isLoading = false;
       });
+
       if (context.mounted) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ChatPage(),
+            builder: (context) => ChatScreen(),
           ),
         );
       }
@@ -86,10 +99,8 @@ class _EmotionDetailsState extends State<EmotionDetails> {
     setState(() {
       if (index == 0) {
         knowCause = true;
-        showTextField = true;
       } else if (index == 1) {
         knowCause = false;
-        showTextField = false;
       }
       setShowSubmitBtn();
     });
@@ -104,28 +115,9 @@ class _EmotionDetailsState extends State<EmotionDetails> {
 
   setShowSubmitBtn() {
     setState(() {
-      showSubmitBtn = (period != null && knowCause == false) ||
+      canSubmit = (period != null && knowCause == false) ||
           (period != null && knowCause == true && background.isNotEmpty);
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    emotion = widget.emotion;
-    _selectedEmotionBtn =
-        List<bool>.generate(4, (index) => index == widget.emotion);
-    _textEditingController.addListener(() {
-      setBackground(_textEditingController.text);
-    });
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    _textEditingController.dispose();
-    super.dispose();
   }
 
   void signOut() {
@@ -146,6 +138,7 @@ class _EmotionDetailsState extends State<EmotionDetails> {
             onTap: onSubmit),
       ),
       drawer: const SideDrawer(),
+      bottomNavigationBar: const BottonMenuBar(),
       body: Center(
         child: isLoading
             ? const CircularProgressIndicator()
@@ -157,26 +150,27 @@ class _EmotionDetailsState extends State<EmotionDetails> {
                     EmotionToggleButtons(
                       question: '현재 느끼는 감정을 알려주세요!',
                       answers: const ['기쁨', '화남', '불안', '우울'],
-                      selectedBorderColor: Colors.blue[700],
-                      fillColor: Colors.blue[200],
-                      color: Colors.blue[400],
-                      selectedBtn: _selectedEmotionBtn,
+                      selectedBorderColor:
+                          Theme.of(context).colorScheme.secondary,
+                      fillColor: Theme.of(context).colorScheme.tertiary,
+                      color: Theme.of(context).colorScheme.primary,
+                      initialIndex: emotion,
                       onPressed: setEmotion,
                     ),
                     EmotionToggleButtons(
                       question: '그러한 감정이 얼마나 지속됐나요?',
                       answers: const ['1시간', '1일', '2주', '1달 이상'],
-                      selectedBorderColor: Colors.green[700],
-                      fillColor: Colors.green[200],
-                      color: Colors.green[400],
+                      selectedBorderColor: Colors.green.shade700,
+                      fillColor: Colors.green.shade200,
+                      color: Colors.green.shade400,
                       onPressed: setPeriod,
                     ),
                     EmotionToggleButtons(
                       question: '감정이 일어난 원인을 아시나요?',
                       answers: const ['네', '아니오'],
-                      selectedBorderColor: Colors.red[700],
-                      fillColor: Colors.red[200],
-                      color: Colors.red[400],
+                      selectedBorderColor: Colors.red.shade700,
+                      fillColor: Colors.red.shade200,
+                      color: Colors.red.shade400,
                       onPressed: setKnowCause,
                     ),
                     EmotionTextField(
@@ -188,7 +182,6 @@ class _EmotionDetailsState extends State<EmotionDetails> {
                 ),
               ),
       ),
-      bottomNavigationBar: const BottonMenuBar(),
     );
   }
 }

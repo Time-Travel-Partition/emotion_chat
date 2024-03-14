@@ -1,6 +1,6 @@
-import 'package:emotion_chat/screens/main/home_tab/home.dart';
-import 'package:emotion_chat/screens/main/profile_tab/profile.dart';
-import 'package:emotion_chat/screens/main/chat_tab/user_list.dart';
+import 'package:emotion_chat/screens/main/home_tab/home_screen.dart';
+import 'package:emotion_chat/screens/main/profile_tab/profile_screen.dart';
+import 'package:emotion_chat/screens/main/chat_tab/chat_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class BottonMenuBar extends StatefulWidget {
@@ -33,21 +33,21 @@ class _BottonMenuBarState extends State<BottonMenuBar> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => const Home(),
+          builder: (_) => const HomeScreen(),
         ),
       );
     } else if (_currentIndex == 1) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => UserList(),
+          builder: (_) => ChatListScreen(),
         ),
       );
     } else if (_currentIndex == 2) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => const Profile(),
+          builder: (_) => const ProfileScreen(),
         ),
       );
     }
@@ -56,8 +56,8 @@ class _BottonMenuBarState extends State<BottonMenuBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      backgroundColor: Colors.blue,
-      selectedItemColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      selectedItemColor: Theme.of(context).colorScheme.background,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       currentIndex: _currentIndex,

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:emotion_chat/screens/main/profile_tab/settings_page.dart';
+import 'package:emotion_chat/screens/main/profile_tab/settings_screen.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/services/image/local_storage/profile_image_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,17 +14,19 @@ class SideDrawer extends StatefulWidget {
 }
 
 class _SideDrawerState extends State<SideDrawer> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final ProfileImageService _profileImageService = ProfileImageService();
+  File? image; // Nullable
   late String email;
   late String name;
-  File? image; // Nullable
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final ProfileImageService _profileImageService = ProfileImageService();
 
   @override
   void initState() {
     super.initState();
     email = _auth.currentUser!.email!;
-    name = _auth.currentUser?.displayName ?? '';
+    name = _auth.currentUser!.displayName ?? '';
+
     // 로컬에 저장된 프로필 이미지 불러와 state에 저장
     _profileImageService.loadImage(email).then((loadedImage) {
       if (loadedImage != null) {
@@ -38,9 +40,6 @@ class _SideDrawerState extends State<SideDrawer> {
   }
 
   void signOut() {
-    // get auth service
-    // final authService = Provider.of<AuthService>(context, listen: false);
-    // authService.signOut();
     final auth = AuthService();
     auth.signOut();
   }
@@ -62,8 +61,6 @@ class _SideDrawerState extends State<SideDrawer> {
                         File(image!.path),
                       ),
                       fit: BoxFit.cover,
-                      width: 100,
-                      height: 100,
                     ),
                   )
                 : Container(
@@ -72,8 +69,6 @@ class _SideDrawerState extends State<SideDrawer> {
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(color: Colors.blue),
                     ),
-                    width: 100,
-                    height: 100,
                   ),
             accountName: Text(name),
             accountEmail: Text(email),
@@ -114,7 +109,7 @@ class _SideDrawerState extends State<SideDrawer> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SettingsPage(),
+                    builder: (context) => const SettingsScreen(),
                   ),
                 );
               },
