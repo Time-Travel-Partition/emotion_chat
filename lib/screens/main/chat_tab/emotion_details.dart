@@ -29,15 +29,21 @@ class _EmotionDetailsState extends State<EmotionDetails> {
   String background = '';
   bool showTextField = false;
   bool showSubmitBtn = false;
+  bool isLoading = false;
   late List<bool> _selectedEmotionBtn;
   final TextEditingController _textEditingController = TextEditingController();
   final EmotionDetailsService emotionDetailsService = EmotionDetailsService();
 
   onSubmit() async {
     if (showSubmitBtn) {
+      setState(() {
+        isLoading = true;
+      });
       await emotionDetailsService.addEmotionDetails(
           emotion!, period!, knowCause!, background);
-
+      setState(() {
+        isLoading = false;
+      });
       if (context.mounted) {
         Navigator.push(
           context,
@@ -141,44 +147,46 @@ class _EmotionDetailsState extends State<EmotionDetails> {
       ),
       drawer: const SideDrawer(),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              EmotionToggleButtons(
-                question: '현재 느끼는 감정을 알려주세요!',
-                answers: const ['기쁨', '화남', '불안', '우울'],
-                selectedBorderColor: Colors.blue[700],
-                fillColor: Colors.blue[200],
-                color: Colors.blue[400],
-                selectedBtn: _selectedEmotionBtn,
-                onPressed: setEmotion,
+        child: isLoading
+            ? const CircularProgressIndicator()
+            : SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 20),
+                    EmotionToggleButtons(
+                      question: '현재 느끼는 감정을 알려주세요!',
+                      answers: const ['기쁨', '화남', '불안', '우울'],
+                      selectedBorderColor: Colors.blue[700],
+                      fillColor: Colors.blue[200],
+                      color: Colors.blue[400],
+                      selectedBtn: _selectedEmotionBtn,
+                      onPressed: setEmotion,
+                    ),
+                    EmotionToggleButtons(
+                      question: '그러한 감정이 얼마나 지속됐나요?',
+                      answers: const ['1시간', '1일', '2주', '1달 이상'],
+                      selectedBorderColor: Colors.green[700],
+                      fillColor: Colors.green[200],
+                      color: Colors.green[400],
+                      onPressed: setPeriod,
+                    ),
+                    EmotionToggleButtons(
+                      question: '감정이 일어난 원인을 아시나요?',
+                      answers: const ['네', '아니오'],
+                      selectedBorderColor: Colors.red[700],
+                      fillColor: Colors.red[200],
+                      color: Colors.red[400],
+                      onPressed: setKnowCause,
+                    ),
+                    EmotionTextField(
+                      question: '감정이 일어나게 된 상황에 대해 알려주세요!',
+                      hintText: '구체적으로 작성하면 상담에 도움이 됩니다 :)',
+                      controller: _textEditingController,
+                    ),
+                  ],
+                ),
               ),
-              EmotionToggleButtons(
-                question: '그러한 감정이 얼마나 지속됐나요?',
-                answers: const ['1시간', '1일', '2주', '1달 이상'],
-                selectedBorderColor: Colors.green[700],
-                fillColor: Colors.green[200],
-                color: Colors.green[400],
-                onPressed: setPeriod,
-              ),
-              EmotionToggleButtons(
-                question: '감정이 일어난 원인을 아시나요?',
-                answers: const ['네', '아니오'],
-                selectedBorderColor: Colors.red[700],
-                fillColor: Colors.red[200],
-                color: Colors.red[400],
-                onPressed: setKnowCause,
-              ),
-              EmotionTextField(
-                question: '감정이 일어나게 된 상황에 대해 알려주세요!',
-                hintText: '구체적으로 작성하면 상담에 도움이 됩니다 :)',
-                controller: _textEditingController,
-              ),
-            ],
-          ),
-        ),
       ),
       bottomNavigationBar: const BottonMenuBar(),
     );
