@@ -1,3 +1,5 @@
+import 'package:emotion_chat/widgets/emailVerifyButton.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/my_button.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
@@ -11,6 +13,7 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController _confirmPwController = TextEditingController();
 
   final void Function()? onTap;
+  final auth = AuthService();
 
   RegisterPage({super.key, required this.onTap});
 
@@ -18,8 +21,6 @@ class RegisterPage extends StatelessWidget {
   // void login() {}
 
   void register(BuildContext context) {
-    final auth = AuthService();
-
     // passwords match => user 생성
     if (_pwController.text == _confirmPwController.text) {
       try {
@@ -38,6 +39,10 @@ class RegisterPage extends StatelessWidget {
                 title: Text("비밀번호가 일치하지 않습니다."),
               ));
     }
+  }
+
+  void verifyEmail(BuildContext context) {
+    print("인증버튼 클릭됨!");
   }
 
   @override
@@ -67,12 +72,21 @@ class RegisterPage extends StatelessWidget {
             ),
 
             const SizedBox(height: 25),
-            // email textfield
-            MyTextField(
-              hintText: "이메일",
-              obscureText: false,
-              controller: _emailController,
+            Row(
+              children: [
+                Expanded(
+                  child: MyTextField(
+                    hintText: "이메일",
+                    obscureText: false,
+                    controller: _emailController,
+                  ),
+                ),
+                EmailVerifyButton(text: "인증", onTap: () => verifyEmail(context))
+              ],
             ),
+
+            // email textfield
+
             const SizedBox(height: 10),
 
             // pw textfield
