@@ -13,21 +13,28 @@ class UserTile extends StatelessWidget {
     return GestureDetector(
         onTap: onTap,
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             // color: Theme.of(context).colorScheme.secondary,
-            color: Colors.grey.shade500,
-            borderRadius: BorderRadius.circular(12),
+            color: Colors.white,
+            border: Border(
+              bottom: BorderSide(color: Colors.grey),
+            ),
           ),
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(
+            vertical: 30,
+            horizontal: 40,
+          ),
           child: Row(
             children: [
               // icon
-              const Icon(Icons.person),
+              SizedBox(
+                height: 40,
+                width: 40,
+                child: Image.asset('images/chat_icon.png'), // 임시
+              ),
               const SizedBox(
                 width: 20,
               ),
-
               // user name
               Text(text), // ---Text(text)
             ],
