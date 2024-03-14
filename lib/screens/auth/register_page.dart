@@ -24,7 +24,8 @@ class RegisterPage extends StatelessWidget {
     // passwords match => user 생성
     if (_pwController.text == _confirmPwController.text) {
       try {
-        auth.signUpWithEmailPassword(_emailController.text, _pwController.text);
+        auth.updateUserPassword(_pwController.text);
+        print("비밀번호 업데이트됨");
       } catch (e) {
         showDialog(
             context: context,
@@ -42,7 +43,16 @@ class RegisterPage extends StatelessWidget {
   }
 
   void verifyEmail(BuildContext context) {
-    print("인증버튼 클릭됨!");
+    try {
+      print("인증버튼 클릭됨!");
+      auth.signUpTemporaryAndSendEmail(_emailController.text);
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text(e.toString()),
+              ));
+    }
   }
 
   @override

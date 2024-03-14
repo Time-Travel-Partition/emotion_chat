@@ -49,10 +49,57 @@ class AuthService extends ChangeNotifier {
         'uid': userCredential.user!.uid,
         'email': email,
       });
-
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code); // 미해결 : 이메일 중복, weak password (예시 pw: test3)
+    }
+  }
+
+//update user password
+  Future<void> updateUserPassword(String newPassword) async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      try {
+        await user.updatePassword(newPassword);
+      } on FirebaseAuthException catch (e) {
+        throw Exception(e.code); // 에러 핸들링
+      }
+    } else {
+      throw Exception('No user logged in');
+    }
+  }
+
+  //send Email verify
+  Future<void> signUpTemporaryAndSendEmail(String email) async {
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: "temp-password",
+      );
+      await userCredential.user!.sendEmailVerification();
+
+      if (userCredential.user != null) {
+        // emailVerified : false
+      }
+    } on FirebaseAuthException catch (error) {
+      String? errorCode;
+      switch (error.code) {
+        case "email-already-in-use":
+          errorCode = error.code;
+          break;
+        case "invalid-email":
+          errorCode = error.code;
+          break;
+        case "weak-password":
+          errorCode = error.code;
+          break;
+        case "operation-not-allowed":
+          errorCode = error.code;
+          break;
+        default:
+          errorCode = null;
+      }
     }
   }
 
