@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/services/chat/chat_service.dart';
+import 'package:emotion_chat/services/openai/openai_service.dart';
 import 'package:emotion_chat/widgets/list_item/chat_bubble.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
@@ -22,6 +23,7 @@ class ChatScreen extends StatelessWidget {
   // chat & auth services
   final ChatService _chatService = ChatService();
   final AuthService _authService = AuthService();
+  final openAIService = OpenAIService();
 
   //send message
   void sendMessage() async {
@@ -29,10 +31,17 @@ class ChatScreen extends StatelessWidget {
     if (_messageController.text.isNotEmpty) {
       // send the message
       await _chatService.sendMessage(receiverID, _messageController.text);
-
+      // 🚨 상대측이 아닌 내가 보낸 메시지가 됨 (나중에 해결)
+      receiveMessage();
       // clear text controller
       _messageController.clear();
     }
+  }
+
+  //send message
+  void receiveMessage() async {
+    final message = await openAIService.createModel(_messageController.text);
+    await _chatService.sendMessage(receiverID, message);
   }
 
   @override
