@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class IncompleteInputAlert extends StatelessWidget {
+class ConfirmAlert extends StatelessWidget {
   final String message;
 
-  const IncompleteInputAlert({
+  const ConfirmAlert({
     super.key,
     required this.message,
   });

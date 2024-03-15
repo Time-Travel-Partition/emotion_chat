@@ -1,7 +1,7 @@
 import 'package:emotion_chat/screens/main/chat_tab/chat_screen.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/textfield/emotion_textfield.dart';
-import 'package:emotion_chat/widgets/modal/incomplete_input_alert.dart';
+import 'package:emotion_chat/widgets/modal/confirm_alert.dart';
 import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -68,8 +68,7 @@ class _BeforeConsultationScreenState extends State<BeforeConsultationScreen> {
     } else {
       showDialog(
         context: context,
-        builder: (context) =>
-            const IncompleteInputAlert(message: '현재 감정 상태를 입력해주세요!'),
+        builder: (context) => const ConfirmAlert(message: '현재 감정 상태를 입력해주세요!'),
       );
     }
   }
