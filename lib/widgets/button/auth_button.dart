@@ -16,7 +16,7 @@ class AuthButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         padding: const EdgeInsets.all(18),
-        margin: const EdgeInsets.symmetric(horizontal: 25),
+        margin: const EdgeInsets.symmetric(horizontal: 26),
         child: Center(
           child: Text(
             text,

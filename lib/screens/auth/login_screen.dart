@@ -1,10 +1,9 @@
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/button/auth_button.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
-import 'package:emotion_chat/themes/light_mode.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   // email and pw text controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
@@ -12,7 +11,7 @@ class LoginPage extends StatelessWidget {
   // tap to go to register page
   final void Function()? onTap;
 
-  LoginPage({super.key, required this.onTap});
+  LoginScreen({super.key, required this.onTap});
 
   void login(BuildContext context) async {
     // auth service

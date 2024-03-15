@@ -75,6 +75,7 @@ flutter:
     - images/anxious.png
     - images/depressed.png
     - images/happy.png
+    - images/chat_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

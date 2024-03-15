@@ -6,11 +6,11 @@ import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 
-class ChatPage extends StatelessWidget {
+class ChatScreen extends StatelessWidget {
   final String receiverEmail;
   final String receiverID;
 
-  ChatPage({
+  ChatScreen({
     super.key,
     this.receiverEmail = 'EmotionBot@gmail.com', // 기본값 설정
     this.receiverID = 'tnc3JRtbstPJTclrHLrN9kzWfeg2', // 임시

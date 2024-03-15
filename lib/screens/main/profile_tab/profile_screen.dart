@@ -10,61 +10,37 @@ import 'package:flutter/material.dart';
 import '../../../utils/image_picker_utils.dart';
 import '../../../widgets/image/image_selector.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileScreenState extends State<ProfileScreen> {
+  File? image; // Nullable
   late String email;
   late String name;
+
+  bool isLoading = false;
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final UserService _userService = UserService();
   final ProfileImageService _profileImageService = ProfileImageService();
   final TextEditingController _textEditingController = TextEditingController();
-  File? image; // Nullable
-  bool isLoading = false;
-
-  setImage() async {
-    File? pickedFile = await ImagePickerUtils.pickImage();
-    if (pickedFile != null) {
-      setState(() {
-        image = pickedFile;
-      });
-    }
-  }
-
-  setName(String text) {
-    setState(() {
-      name = text;
-    });
-  }
-
-  onSubmit() async {
-    setState(() {
-      isLoading = true;
-    });
-    await _profileImageService.saveImage(image, email);
-    await _userService.updateUserName(name);
-    setState(() {
-      isLoading = false;
-    });
-    if (context.mounted) {
-      showDialog(
-        context: context,
-        builder: (context) =>
-            const IncompleteInputAlert(message: '프로필이 수정되었습니다.'),
-      );
-    }
-  }
 
   @override
   void initState() {
     super.initState();
     email = _auth.currentUser!.email!;
-    name = _auth.currentUser?.displayName ?? '';
+    name = _auth.currentUser!.displayName ?? '';
+    _textEditingController.text = name;
+
+    // 이름 텍스트가 편집될 때마다 state 변경
+    _textEditingController.addListener(() {
+      setName(_textEditingController.text);
+    });
+
     // 로컬에 저장된 프로필 이미지 불러와 state에 저장
     _profileImageService.loadImage(email).then((loadedImage) {
       if (loadedImage != null) {
@@ -75,11 +51,42 @@ class _ProfileState extends State<Profile> {
         });
       }
     });
-    _textEditingController.text = _auth.currentUser?.displayName ?? '';
-    // 이름 텍스트가 편집될 때마다 state 변경
-    _textEditingController.addListener(() {
-      setName(_textEditingController.text);
+  }
+
+  setName(String text) {
+    setState(() {
+      name = text;
     });
+  }
+
+  setImage() async {
+    File? pickedFile = await ImagePickerUtils.pickImage();
+    if (pickedFile != null) {
+      setState(() {
+        image = pickedFile;
+      });
+    }
+  }
+
+  onSubmit() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await _profileImageService.saveImage(image, email);
+    await _userService.updateUserName(name);
+
+    setState(() {
+      isLoading = false;
+    });
+
+    if (context.mounted) {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            const IncompleteInputAlert(message: '프로필이 수정되었습니다.'),
+      );
+    }
   }
 
   @override
@@ -88,10 +95,16 @@ class _ProfileState extends State<Profile> {
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(60),
-        child:
-            TopAppBar(titleText: 'Profile', buttonText: '확인', onTap: onSubmit),
+        child: TopAppBar(
+          titleText: 'Profile',
+          buttonText: '확인',
+          onTap: onSubmit,
+        ),
       ),
       drawer: const SideDrawer(),
+      bottomNavigationBar: const BottonMenuBar(
+        currentIndex: 2,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: isLoading
@@ -128,10 +141,12 @@ class _ProfileState extends State<Profile> {
                                 fit: FlexFit.tight,
                                 child: TextField(
                                   controller: _textEditingController,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Colors.blue,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                       ),
                                     ),
                                   ),
@@ -181,12 +196,12 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.only(top: 25),
                       child: ElevatedButton(
                         onPressed: () {},
-                        style: const ButtonStyle(
-                          foregroundColor:
-                              MaterialStatePropertyAll(Colors.white),
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.blue),
-                          elevation: MaterialStatePropertyAll(0),
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStatePropertyAll(
+                              Theme.of(context).colorScheme.background),
+                          backgroundColor: MaterialStatePropertyAll(
+                              Theme.of(context).colorScheme.primary),
+                          elevation: const MaterialStatePropertyAll(0),
                         ),
                         child: const Padding(
                           padding: EdgeInsets.symmetric(
@@ -201,9 +216,6 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-      ),
-      bottomNavigationBar: const BottonMenuBar(
-        currentIndex: 2,
       ),
     );
   }

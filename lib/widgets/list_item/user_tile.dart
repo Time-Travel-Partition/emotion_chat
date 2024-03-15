@@ -9,29 +9,36 @@ class UserTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print('userData: $text'); // 유저데이터의 텍스트 출력
     return GestureDetector(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
-            // color: Theme.of(context).colorScheme.secondary,
-            color: Colors.grey.shade500,
-            borderRadius: BorderRadius.circular(12),
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: Theme.of(context).colorScheme.inversePrimary,
+            ),
           ),
-          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            children: [
-              // icon
-              const Icon(Icons.person),
-              const SizedBox(
-                width: 20,
-              ),
-
-              // user name
-              Text(text), // ---Text(text)
-            ],
-          ),
-        ));
+        ),
+        padding: const EdgeInsets.symmetric(
+          vertical: 30,
+          horizontal: 40,
+        ),
+        child: Row(
+          children: [
+            // icon
+            SizedBox(
+              height: 40,
+              width: 40,
+              child: Image.asset('images/chat_icon.png'), // 임시
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            // user name
+            Text(text),
+          ],
+        ),
+      ),
+    );
   }
 }

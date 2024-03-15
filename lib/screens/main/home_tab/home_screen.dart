@@ -1,33 +1,36 @@
 import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
+import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/button/emotion_button.dart';
-import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: TopAppBar(titleText: 'Home'),
       ),
       drawer: const SideDrawer(),
+      bottomNavigationBar: const BottonMenuBar(
+        currentIndex: 0,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Text(
-              'Choose your feelings 🙂',
+              '현재의 감정을 선택하세요 🙂',
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -64,9 +67,6 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: const BottonMenuBar(
-        currentIndex: 0,
       ),
     );
   }

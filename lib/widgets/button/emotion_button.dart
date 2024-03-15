@@ -1,4 +1,4 @@
-import 'package:emotion_chat/screens/main/chat_tab/emotion_details.dart';
+import 'package:emotion_chat/screens/main/chat_tab/before_consultation_screen.dart';
 import 'package:flutter/material.dart';
 
 class EmotionButton extends StatelessWidget {
@@ -16,13 +16,14 @@ class EmotionButton extends StatelessWidget {
     return TextButton(
       style: ButtonStyle(
         overlayColor:
+            // 터치시 애니메이션 효과 제거
             MaterialStateColor.resolveWith((states) => Colors.transparent),
       ),
       onPressed: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => EmotionDetails(emotion: emotion),
+            builder: (_) => BeforeConsultationScreen(emotion: emotion),
           ),
         );
       },

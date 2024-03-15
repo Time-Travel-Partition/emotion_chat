@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class EmotionToggleButtons extends StatefulWidget {
   final String question;
   final List<String> answers;
-  final Color? selectedBorderColor;
-  final Color? fillColor;
-  final Color? color;
-  final List<bool>? selectedBtn;
+  final Color selectedBorderColor;
+  final Color fillColor;
+  final Color color;
+  final int? initialIndex;
   final Function(int) onPressed;
 
   const EmotionToggleButtons(
@@ -17,7 +17,7 @@ class EmotionToggleButtons extends StatefulWidget {
       required this.fillColor,
       required this.color,
       required this.onPressed,
-      this.selectedBtn});
+      this.initialIndex});
 
   @override
   State<EmotionToggleButtons> createState() => _EmotionToggleButtonsState();
@@ -29,8 +29,12 @@ class _EmotionToggleButtonsState extends State<EmotionToggleButtons> {
   @override
   void initState() {
     super.initState();
-    _selectedBtn = widget.selectedBtn ??
-        List<bool>.generate(widget.answers.length, (index) => false);
+    // 초기 인덱스가 존재하지 않을 경우에는 모두 false로 설정
+    _selectedBtn = List<bool>.generate(
+      widget.answers.length,
+      (index) =>
+          widget.initialIndex != null ? index == widget.initialIndex : false,
+    );
   }
 
   @override
@@ -44,12 +48,12 @@ class _EmotionToggleButtonsState extends State<EmotionToggleButtons> {
           ),
         ),
         const SizedBox(
-          height: 20, // 여백
+          height: 20, // 상단 여백
         ),
         ToggleButtons(
           borderRadius: const BorderRadius.all(Radius.circular(10)),
           selectedBorderColor: widget.selectedBorderColor,
-          selectedColor: Colors.white,
+          selectedColor: Theme.of(context).colorScheme.background,
           fillColor: widget.fillColor,
           color: widget.color,
           constraints: const BoxConstraints(
@@ -77,7 +81,7 @@ class _EmotionToggleButtonsState extends State<EmotionToggleButtons> {
           ],
         ),
         const SizedBox(
-          height: 20, // 여백
+          height: 20, // 하단 여백
         ),
       ],
     );
