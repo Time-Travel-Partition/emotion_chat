@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       image: Image.asset('images/happy.png'),
                     ),
                     EmotionButton(
-                      emotion: 1,
+                      emotion: 2,
                       image: Image.asset('images/anxious.png'),
                     ),
                   ],
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     EmotionButton(
-                      emotion: 2,
+                      emotion: 1,
                       image: Image.asset('images/angry.png'),
                     ),
                     EmotionButton(

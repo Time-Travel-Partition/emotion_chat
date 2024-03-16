@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emotion_chat/screens/main/chat_tab/chat_list_screen.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/services/chat/chat_service.dart';
 import 'package:emotion_chat/services/openai/openai_service.dart';
 import 'package:emotion_chat/widgets/list_item/chat_bubble.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
-import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -47,9 +47,26 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: TopAppBar(titleText: receiverEmail),
+      appBar: AppBar(
+        title: Text(
+          receiverEmail,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        foregroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatListScreen(),
+              ),
+            );
+          },
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
       ),
       body: Column(
         children: [
