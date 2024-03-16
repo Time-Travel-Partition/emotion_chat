@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:emotion_chat/services/image/local_storage/profile_image_service.dart';
 import 'package:emotion_chat/services/user/user_service.dart';
-import 'package:emotion_chat/widgets/modal/incomplete_input_alert.dart';
+import 'package:emotion_chat/widgets/modal/confirm_alert.dart';
 import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
@@ -83,8 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (context.mounted) {
       showDialog(
         context: context,
-        builder: (context) =>
-            const IncompleteInputAlert(message: '프로필이 수정되었습니다.'),
+        builder: (context) => const ConfirmAlert(message: '프로필이 수정되었습니다.'),
       );
     }
   }
