@@ -71,6 +71,7 @@ class ChatListScreen extends StatelessWidget {
   Widget _buildUserListItem(
       Map<String, dynamic> chatRoomsData, BuildContext context) {
     return UserTile(
+      emotion: chatRoomsData['emotion'],
       text: getEmotionString(chatRoomsData['emotion']),
       onTap: () {
         Navigator.push(
