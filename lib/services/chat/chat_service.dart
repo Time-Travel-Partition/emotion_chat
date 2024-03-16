@@ -6,39 +6,39 @@ class ChatService {
   // get instance of firestore & auth
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  // get user stream
-  Stream<List<Map<String, dynamic>>> getUserStream() {
-    return _firestore.collection('Users').snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        final user = doc.data();
 
-        // return user
-        return user;
+  Stream<List<Map<String, dynamic>>> getChatRoomsStream() {
+    final String currentUserID = _auth.currentUser!.uid;
+
+    return _firestore
+        .collection('ChatRooms')
+        .where(FieldPath.documentId,
+            isGreaterThanOrEqualTo: '${currentUserID}_0')
+        .where(FieldPath.documentId, isLessThanOrEqualTo: '${currentUserID}_3')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final chatRooms = doc.data();
+        return chatRooms;
       }).toList();
     });
   }
 
-  // send message
-  Future<void> sendMessage(String receiverID, message) async {
-    // get current user info
+  Future<void> sendMessage(int emotion, String content, bool isBot) async {
     final String currentUserID = _auth.currentUser!.uid;
-    final String currentUserEmail = _auth.currentUser!.email!;
     final Timestamp timestamp = Timestamp.now();
 
     // create a new message
     Message newMessage = Message(
-        senderID: currentUserID,
-        senderEmail: currentUserEmail,
-        receiverID: receiverID,
-        message: message,
-        timestamp: timestamp);
+      uid: currentUserID,
+      emotion: emotion,
+      content: content,
+      isBot: isBot,
+      timestamp: timestamp,
+    );
 
-    // construct chat room ID for the two users (sorted to ensure uniqueness)
-    List<String> ids = [currentUserID, receiverID];
-    ids.sort();
-    String chatRoomID = ids.join('_');
+    String chatRoomID = '${currentUserID}_$emotion';
 
-    // add new message to database
     await _firestore
         .collection('ChatRooms')
         .doc(chatRoomID)
@@ -46,12 +46,10 @@ class ChatService {
         .add(newMessage.toMap());
   }
 
-  //get messages
-  Stream<QuerySnapshot> getMessages(String userID, otherUserID) {
-    //construct a chatroom IDfor the two users
-    List<String> ids = [userID, otherUserID];
-    ids.sort();
-    String chatRoomID = ids.join('_');
+  Stream<QuerySnapshot> getMessages(int emotion) {
+    final String currentUserID = _auth.currentUser!.uid;
+
+    String chatRoomID = '${currentUserID}_$emotion';
 
     return _firestore
         .collection('ChatRooms')

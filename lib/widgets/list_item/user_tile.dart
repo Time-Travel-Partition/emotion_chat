@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
 class UserTile extends StatelessWidget {
+  final int emotion;
   final String text;
 
   final void Function()? onTap;
 
-  const UserTile({super.key, required this.text, required this.onTap});
+  const UserTile(
+      {super.key,
+      required this.emotion,
+      required this.text,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +34,18 @@ class UserTile extends StatelessWidget {
             SizedBox(
               height: 40,
               width: 40,
-              child: Image.asset('images/chat_icon.png'), // 임시
+              child: Image.asset('images/chat_icon_$emotion.png'),
             ),
             const SizedBox(
               width: 20,
             ),
             // user name
-            Text(text),
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
           ],
         ),
       ),
