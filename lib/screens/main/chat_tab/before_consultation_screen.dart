@@ -144,6 +144,18 @@ class _BeforeConsultationScreenState extends State<BeforeConsultationScreen> {
           },
           icon: const Icon(Icons.arrow_back_rounded),
         ),
+        actions: [
+          TextButton(
+            onPressed: onSubmit,
+            child: const Text(
+              '제출',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
       drawer: const SideDrawer(),
       bottomNavigationBar: const BottonMenuBar(),
