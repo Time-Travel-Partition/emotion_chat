@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emotion_chat/screens/main/chat_tab/chat_list_screen.dart';
-import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/services/chat/chat_service.dart';
 import 'package:emotion_chat/services/openai/openai_service.dart';
 import 'package:emotion_chat/widgets/list_item/chat_bubble.dart';
@@ -8,13 +7,11 @@ import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
-  final String receiverEmail;
-  final String receiverID;
+  final int emotion;
 
   ChatScreen({
     super.key,
-    this.receiverEmail = 'EmotionBot@gmail.com', // 기본값 설정
-    this.receiverID = 'tnc3JRtbstPJTclrHLrN9kzWfeg2', // 임시
+    required this.emotion,
   });
 
   // text controller
@@ -22,26 +19,30 @@ class ChatScreen extends StatelessWidget {
 
   // chat & auth services
   final ChatService _chatService = ChatService();
-  final AuthService _authService = AuthService();
   final openAIService = OpenAIService();
+
+  getEmotionString(int index) {
+    if (index == 0) return '기쁨';
+    if (index == 1) return '화남';
+    if (index == 2) return '불안';
+    if (index == 3) return '우울';
+  }
 
   //send message
   void sendMessage() async {
     // if there is something inside the textfield
     if (_messageController.text.isNotEmpty) {
       // send the message
-      await _chatService.sendMessage(receiverID, _messageController.text);
-      // 🚨 상대측이 아닌 내가 보낸 메시지가 됨 (나중에 해결)
+      await _chatService.sendMessage(emotion, _messageController.text, false);
       receiveMessage();
       // clear text controller
       _messageController.clear();
     }
   }
 
-  //send message
   void receiveMessage() async {
     final message = await openAIService.createModel(_messageController.text);
-    await _chatService.sendMessage(receiverID, message);
+    await _chatService.sendMessage(emotion, message, true);
   }
 
   @override
@@ -49,7 +50,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          receiverEmail,
+          getEmotionString(emotion),
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -81,9 +82,8 @@ class ChatScreen extends StatelessWidget {
   }
 
   Widget _buildMessageList() {
-    String senderID = _authService.getCurrentUser()!.uid;
     return StreamBuilder(
-      stream: _chatService.getMessages(receiverID, senderID),
+      stream: _chatService.getMessages(emotion),
       builder: (context, snapshot) {
         //error
         if (snapshot.hasError) {
@@ -105,19 +105,14 @@ class ChatScreen extends StatelessWidget {
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     // 현재 로그인한 유저와 동일여부 파악
-    bool isCurrentUser = data['senderID'] == _authService.getCurrentUser()!.uid;
+    bool isCurrentUser = !data['isBot'];
 
-    // 현재 로그인한 유저의 메시지는 오른쪽으로 정렬 아니면 왼쪽정렬.
-    var alignment =
-        isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
-
+    // 현재 로그인한 유저의 메시지는 오른쪽으로 정렬 아니면 왼쪽정렬
     return Container(
-      alignment: alignment,
+      alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
       child: Column(
-        crossAxisAlignment:
-            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
-          ChatBubble(message: data['message'], isCurrentUser: isCurrentUser),
+          ChatBubble(message: data['content'], isCurrentUser: isCurrentUser),
         ],
       ),
     );

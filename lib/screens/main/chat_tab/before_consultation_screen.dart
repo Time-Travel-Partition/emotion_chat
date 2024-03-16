@@ -61,7 +61,7 @@ class _BeforeConsultationScreenState extends State<BeforeConsultationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ChatScreen(),
+            builder: (context) => ChatScreen(emotion: emotion),
           ),
         );
       }

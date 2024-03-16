@@ -4,7 +4,6 @@ import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/list_item/user_tile.dart';
-import '../../../services/auth/auth_service.dart';
 import 'package:emotion_chat/screens/main/chat_tab/chat_screen.dart';
 
 // HomePage -> UserList
@@ -13,7 +12,13 @@ class ChatListScreen extends StatelessWidget {
 
   // chat & auth service
   final ChatService _chatService = ChatService();
-  final AuthService _authService = AuthService();
+
+  getEmotionString(int index) {
+    if (index == 0) return '기쁨';
+    if (index == 1) return '화남';
+    if (index == 2) return '불안';
+    if (index == 3) return '우울';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class ChatListScreen extends StatelessWidget {
   // build a list of users
   Widget _buildUserList() {
     return StreamBuilder(
-      stream: _chatService.getUserStream(),
+      stream: _chatService.getChatRoomsStream(),
       builder: (context, snapshot) {
         //error
         if (snapshot.hasError) {
@@ -44,36 +49,39 @@ class ChatListScreen extends StatelessWidget {
           return const Text('Loading..');
         }
         //return list view
-        return ListView(
-          children: snapshot.data!
-              .map<Widget>((userData) => _buildUserListItem(userData, context))
-              .toList(),
-        );
+        return snapshot.data!.isNotEmpty
+            ? ListView(
+                children: snapshot.data!
+                    .map<Widget>((chatRoomsData) =>
+                        _buildUserListItem(chatRoomsData, context))
+                    .toList(),
+              )
+            : const Center(
+                child: Text(
+                  '현재 채팅방이 존재하지 않습니다 🥲',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              );
       },
     );
   }
 
-  // build individual list tile for user
   Widget _buildUserListItem(
-      Map<String, dynamic> userData, BuildContext context) {
-    //display all users except current user
-    if (userData['email'] != _authService.getCurrentUser()!.email) {
-      return UserTile(
-        text: userData['email'],
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatScreen(
-                receiverEmail: userData['email'],
-                receiverID: userData['uid'],
-              ),
+      Map<String, dynamic> chatRoomsData, BuildContext context) {
+    return UserTile(
+      text: getEmotionString(chatRoomsData['emotion']),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ChatScreen(
+              emotion: chatRoomsData['emotion'],
             ),
-          );
-        },
-      );
-    } else {
-      return Container();
-    }
+          ),
+        );
+      },
+    );
   }
 }

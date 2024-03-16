@@ -35,7 +35,12 @@ class UserTile extends StatelessWidget {
               width: 20,
             ),
             // user name
-            Text(text),
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
           ],
         ),
       ),

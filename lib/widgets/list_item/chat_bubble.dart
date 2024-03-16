@@ -19,7 +19,7 @@ class ChatBubble extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
       child: Text(
         message,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.justify,
         style: TextStyle(
           color: isCurrentUser ? Colors.white : Colors.blue,
         ),
