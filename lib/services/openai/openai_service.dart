@@ -2,7 +2,7 @@ import 'package:dart_openai/dart_openai.dart';
 import 'package:emotion_chat/env/env.dart';
 
 class OpenAIService {
-  List<OpenAIChatCompletionChoiceMessageModel> messagesList = [];
+  static List<OpenAIChatCompletionChoiceMessageModel> messagesList = [];
 
   Future<String> createModel(String sendMessage, String emotion) async {
     OpenAI.apiKey = Env.apiKey;
@@ -45,9 +45,11 @@ class OpenAIService {
     );
 
     messagesList.add(userMessage);
+    // 메시지 리스트 출력
 
     final requestMessages = [...messagesList];
-
+    print('요청 메시지 리스트 출력!!');
+    print(requestMessages);
     OpenAIChatCompletionModel chatCompletion =
         await OpenAI.instance.chat.create(
       model: 'gpt-3.5-turbo',
