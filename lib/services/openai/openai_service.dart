@@ -2,7 +2,9 @@ import 'package:dart_openai/dart_openai.dart';
 import 'package:emotion_chat/env/env.dart';
 
 class OpenAIService {
-  Future<String> createModel(String sendMessage) async {
+  List<OpenAIChatCompletionChoiceMessageModel> messagesList = [];
+
+  Future<String> createModel(String sendMessage, String emotion) async {
     OpenAI.apiKey = Env.apiKey;
     OpenAI.requestsTimeOut = const Duration(seconds: 60); // 시간 제한 늘림
 
@@ -10,11 +12,27 @@ class OpenAIService {
     final systemMessage = OpenAIChatCompletionChoiceMessageModel(
       content: [
         OpenAIChatCompletionChoiceMessageContentItemModel.text(
-          "You're a psychological consultant.",
+          '너는 심리 상담가야. 내담자는 $emotion의 감정을 느꼈어.',
         ),
       ],
       role: OpenAIChatMessageRole.system,
     );
+
+    messagesList.add(systemMessage);
+
+    // // conversationHistory에 있는 메시지들을 messagesList에 추가
+    // for (String historyMessage in conversationHistory) {
+    //   final historyMessageModel = OpenAIChatCompletionChoiceMessageModel(
+    //     content: [
+    //       OpenAIChatCompletionChoiceMessageContentItemModel.text(
+    //         historyMessage,
+    //       ),
+    //     ],
+    //     role: OpenAIChatMessageRole.user,
+    //   );
+
+    //   messagesList.add(historyMessageModel);
+    // }
 
     // 사용자가 보내는 메시지
     final userMessage = OpenAIChatCompletionChoiceMessageModel(
@@ -26,10 +44,9 @@ class OpenAIService {
       role: OpenAIChatMessageRole.user,
     );
 
-    final requestMessages = [
-      systemMessage,
-      userMessage,
-    ];
+    messagesList.add(userMessage);
+
+    final requestMessages = [...messagesList];
 
     OpenAIChatCompletionModel chatCompletion =
         await OpenAI.instance.chat.create(

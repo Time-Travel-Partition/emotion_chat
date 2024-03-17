@@ -19,6 +19,7 @@ class ChatScreen extends StatelessWidget {
 
   // chat & auth services
   final ChatService _chatService = ChatService();
+
   final openAIService = OpenAIService();
 
   getEmotionString(int index) {
@@ -26,6 +27,27 @@ class ChatScreen extends StatelessWidget {
     if (index == 1) return '화남';
     if (index == 2) return '불안';
     if (index == 3) return '우울';
+  }
+
+  Future<List<String>> getConversationHistory() async {
+    List<String> contentsList = [];
+    var messagesStream = _chatService.getMessages(emotion);
+
+    try {
+      // 스트림에서 메시지 내용을 가져와 배열에 저장
+      await for (var snapshot in messagesStream) {
+        for (var message in snapshot.docs) {
+          var data = message.data() as Map<String, dynamic>;
+          if (data['isBot'] == false) {
+            contentsList.add(data['content']);
+          }
+        }
+      }
+    } catch (e) {
+      // 에러 처리
+      print('스트림 처리 중 에러 발생: $e');
+    }
+    return contentsList;
   }
 
   //send message
@@ -41,7 +63,10 @@ class ChatScreen extends StatelessWidget {
   }
 
   void receiveMessage() async {
-    final message = await openAIService.createModel(_messageController.text);
+    //final conversationHistory = await getConversationHistory();
+
+    final message = await openAIService.createModel(
+        _messageController.text, getEmotionString(emotion));
     await _chatService.sendMessage(emotion, message, true);
   }
 
