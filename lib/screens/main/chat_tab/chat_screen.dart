@@ -6,21 +6,48 @@ import 'package:emotion_chat/widgets/list_item/chat_bubble.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:flutter/material.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   final int emotion;
 
-  ChatScreen({
+  const ChatScreen({
     super.key,
     required this.emotion,
   });
 
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
   // text controller
   final TextEditingController _messageController = TextEditingController();
 
   // chat & auth services
   final ChatService _chatService = ChatService();
-
   final openAIService = OpenAIService();
+
+  //채팅 입력 시 키보드를 띄우고, 자동으로 채팅내역을 스크롤
+  FocusNode myFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 포커스 노드 리스너 생성
+    myFocusNode.addListener(() {
+      if (myFocusNode.hasFocus) {
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () => scrollDown(),
+        );
+      }
+    });
+
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => scrollDown(),
+    );
+  }
 
   getEmotionString(int index) {
     if (index == 0) return '기쁨';
@@ -29,9 +56,26 @@ class ChatScreen extends StatelessWidget {
     if (index == 3) return '우울';
   }
 
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    _messageController.dispose();
+    super.dispose();
+  }
+
+  // scroll controller
+  final ScrollController _scrollController = ScrollController();
+  void scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
   Future<List<String>> getConversationHistory() async {
     List<String> contentsList = [];
-    var messagesStream = _chatService.getMessages(emotion);
+    var messagesStream = _chatService.getMessages(widget.emotion);
 
     try {
       // 스트림에서 메시지 내용을 가져와 배열에 저장
@@ -55,19 +99,23 @@ class ChatScreen extends StatelessWidget {
     // if there is something inside the textfield
     if (_messageController.text.isNotEmpty) {
       // send the message
-      await _chatService.sendMessage(emotion, _messageController.text, false);
+      await _chatService.sendMessage(
+          widget.emotion, _messageController.text, false);
       receiveMessage();
       // clear text controller
       _messageController.clear();
     }
+
+    scrollDown();
   }
 
   void receiveMessage() async {
     //final conversationHistory = await getConversationHistory();
 
     final message = await openAIService.createModel(
-        _messageController.text, getEmotionString(emotion));
-    await _chatService.sendMessage(emotion, message, true);
+        _messageController.text, getEmotionString(widget.emotion));
+    await _chatService.sendMessage(widget.emotion, message, true);
+    scrollDown();
   }
 
   @override
@@ -75,7 +123,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          getEmotionString(emotion),
+          getEmotionString(widget.emotion),
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -108,7 +156,7 @@ class ChatScreen extends StatelessWidget {
 
   Widget _buildMessageList() {
     return StreamBuilder(
-      stream: _chatService.getMessages(emotion),
+      stream: _chatService.getMessages(widget.emotion),
       builder: (context, snapshot) {
         //error
         if (snapshot.hasError) {
@@ -119,6 +167,7 @@ class ChatScreen extends StatelessWidget {
         }
         // 메시지 전송시 자동으로 스크롤 최하단으로 내리는 것 필요
         return ListView(
+          controller: _scrollController,
           children:
               snapshot.data!.docs.map((doc) => _buildMessageItem(doc)).toList(),
         );
@@ -139,7 +188,7 @@ class ChatScreen extends StatelessWidget {
         children: [
           ChatBubble(
             message: data['content'],
-            emotion: emotion,
+            emotion: widget.emotion,
             isCurrentUser: isCurrentUser,
           ),
         ],
@@ -159,6 +208,7 @@ class ChatScreen extends StatelessWidget {
               controller: _messageController,
               hintText: 'Type a message',
               obscureText: false,
+              focusNode: myFocusNode,
             ),
           ),
 
