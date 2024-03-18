@@ -4,12 +4,14 @@ class AuthTextField extends StatelessWidget {
   final String hintText; // final var은 반드시 초기화 되어야함
   final bool obscureText;
   final TextEditingController controller;
+  final FocusNode? focusNode;
 
   const AuthTextField({
     super.key,
     required this.hintText,
     required this.obscureText,
     required this.controller,
+    this.focusNode,
   });
 
   @override
@@ -19,6 +21,7 @@ class AuthTextField extends StatelessWidget {
       child: TextField(
         obscureText: obscureText,
         controller: controller,
+        focusNode: focusNode,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(

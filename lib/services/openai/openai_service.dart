@@ -6,7 +6,7 @@ class OpenAIService {
 
   Future<String> createModel(String sendMessage, String emotion) async {
     OpenAI.apiKey = Env.apiKey;
-    OpenAI.requestsTimeOut = const Duration(seconds: 60); // 시간 제한 늘림
+    OpenAI.requestsTimeOut = const Duration(seconds: 200); // 시간 제한 늘림
 
     // Assistant에게 대화의 방향성을 알려주는 메시지
     final systemMessage = OpenAIChatCompletionChoiceMessageModel(
