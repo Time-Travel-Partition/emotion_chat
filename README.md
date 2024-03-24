@@ -19,8 +19,11 @@
 당신의 감정을 객관적으로 바라보고 사랑해주세요.  
   
 모든 감정은 결국 당신입니다.  
-
-![screen_example](https://github.com/Time-Travel-Partition/saekam/assets/94723713/b4455aed-ddff-403f-bbdf-85777ed0ee0a)
+  
+<details>
+  <summary>채팅 화면</summary>
+  <img src='https://github.com/Time-Travel-Partition/saekam/assets/94723713/b4455aed-ddff-403f-bbdf-85777ed0ee0a' />
+</details>
   
 ## 📚 기술 스택
 <img src="https://img.shields.io/badge/dart-0175C2?style=flat-square&logo=dart&logoColor=white"> <img src="https://img.shields.io/badge/flutter-02569B?style=flat-square&logo=flutter&logoColor=white"> <img src="https://img.shields.io/badge/firebase-FFCA28?style=flat-square&logo=firebase&logoColor=black"> <img src="https://img.shields.io/badge/openai-412991?style=flat-square&logo=openai&logoColor=white">
