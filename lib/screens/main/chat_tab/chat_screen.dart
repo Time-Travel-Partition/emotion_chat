@@ -25,13 +25,13 @@ class _ChatScreenState extends State<ChatScreen> {
   // chat & auth services
   final ChatService _chatService = ChatService();
   final openAIService = OpenAIService();
-
   //채팅 입력 시 키보드를 띄우고, 자동으로 채팅내역을 스크롤
   FocusNode myFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
+    print(openAIService.messagesList);
 
     // 포커스 노드 리스너 생성
     myFocusNode.addListener(() {
@@ -49,13 +49,6 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  getEmotionString(int index) {
-    if (index == 0) return '기쁨';
-    if (index == 1) return '화남';
-    if (index == 2) return '불안';
-    if (index == 3) return '우울';
-  }
-
   @override
   void dispose() {
     myFocusNode.dispose();
@@ -71,27 +64,6 @@ class _ChatScreenState extends State<ChatScreen> {
       duration: const Duration(seconds: 1),
       curve: Curves.fastOutSlowIn,
     );
-  }
-
-  Future<List<String>> getConversationHistory() async {
-    List<String> contentsList = [];
-    var messagesStream = _chatService.getMessages(widget.emotion);
-
-    try {
-      // 스트림에서 메시지 내용을 가져와 배열에 저장
-      await for (var snapshot in messagesStream) {
-        for (var message in snapshot.docs) {
-          var data = message.data() as Map<String, dynamic>;
-          if (data['isBot'] == false) {
-            contentsList.add(data['content']);
-          }
-        }
-      }
-    } catch (e) {
-      // 에러 처리
-      print('스트림 처리 중 에러 발생: $e');
-    }
-    return contentsList;
   }
 
   //send message
@@ -113,9 +85,16 @@ class _ChatScreenState extends State<ChatScreen> {
     //final conversationHistory = await getConversationHistory();
 
     final message = await openAIService.createModel(
-        _messageController.text, getEmotionString(widget.emotion));
+        _messageController.text, widget.emotion);
     await _chatService.sendMessage(widget.emotion, message, true);
     scrollDown();
+  }
+
+  getEmotionString(int index) {
+    if (index == 0) return '기쁨';
+    if (index == 1) return '화남';
+    if (index == 2) return '불안';
+    if (index == 3) return '우울';
   }
 
   @override
