@@ -120,6 +120,25 @@ class _ChatScreenState extends State<ChatScreen> {
           },
           icon: const Icon(Icons.arrow_back_rounded),
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatListScreen(),
+                ),
+              );
+            },
+            child: const Text(
+              '상담종료',
+              style: TextStyle(
+                fontSize: 17,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [

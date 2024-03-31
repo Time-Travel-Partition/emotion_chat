@@ -10,7 +10,7 @@ packages:
     source: hosted
     version: "64.0.0"
   _flutterfire_internals:
-    dependency: transitive        
+    dependency: transitive
     description:
       name: _flutterfire_internals
       sha256: f5628cd9c92ed11083f425fd1f8f1bc60ecdda458c81d73b143aeda036c35fe7
