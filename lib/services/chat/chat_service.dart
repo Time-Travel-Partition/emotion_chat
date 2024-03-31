@@ -7,7 +7,6 @@ class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late final String currentUserID;
-  final Timestamp timestamp = Timestamp.now();
 
   ChatService() {
     currentUserID = _auth.currentUser!.uid;
@@ -32,6 +31,7 @@ class ChatService {
 
   Future<void> sendMessage(int emotion, String content, bool isBot) async {
     // final String currentUserID = _auth.currentUser!.uid;
+    final Timestamp timestamp = Timestamp.now();
 
     // create a new message
     Message newMessage = Message(
@@ -66,6 +66,7 @@ class ChatService {
 
   Future<void> backupChatHistory(int emotion) async {
     String chatRoomID = '${currentUserID}_$emotion';
+    final Timestamp timestamp = Timestamp.now();
     final chatRoomRef = _firestore.collection('ChatRooms').doc(chatRoomID);
     final messagesSnapshot = await chatRoomRef.collection('Messages').get();
 
@@ -74,8 +75,27 @@ class ChatService {
       await _firestore
           .collection('ChatHistory')
           .doc(chatRoomID)
-          .collection('Messages')
+          .collection('Messages_$timestamp')
           .add(msg.data());
     }
+  }
+
+  // 채팅방을 제거하는 함수
+  Future<void> deleteChatRoom(int emotion) async {
+    String chatRoomID = '${currentUserID}_$emotion';
+
+    // 채팅방과 관련된 모든 메시지 삭제
+    final messagesSnapshot = await _firestore
+        .collection('ChatRooms')
+        .doc(chatRoomID)
+        .collection('Messages')
+        .get();
+
+    for (var msg in messagesSnapshot.docs) {
+      await msg.reference.delete();
+    }
+
+    // 마지막으로 채팅방 삭제
+    await _firestore.collection('ChatRooms').doc(chatRoomID).delete();
   }
 }
