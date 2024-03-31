@@ -123,12 +123,19 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           TextButton(
             onPressed: () {
+              //상담종료 버튼 누르는 경우
+              //ChatListScreen으로 돌아가기
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => ChatListScreen(),
                 ),
               );
+              _chatService.backupChatHistory(widget.emotion);
+
+              //ChatService 내 채팅내역 백업함수 호출
+
+              //해당 채팅방 제거
             },
             child: const Text(
               '상담종료',

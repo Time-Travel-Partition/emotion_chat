@@ -6,9 +6,15 @@ class ChatService {
   // get instance of firestore & auth
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final String currentUserID;
+  final Timestamp timestamp = Timestamp.now();
+
+  ChatService() {
+    currentUserID = _auth.currentUser!.uid;
+  }
 
   Stream<List<Map<String, dynamic>>> getChatRoomsStream() {
-    final String currentUserID = _auth.currentUser!.uid;
+    // final String currentUserID = _auth.currentUser!.uid; // 초기버전
 
     return _firestore
         .collection('ChatRooms')
@@ -25,8 +31,7 @@ class ChatService {
   }
 
   Future<void> sendMessage(int emotion, String content, bool isBot) async {
-    final String currentUserID = _auth.currentUser!.uid;
-    final Timestamp timestamp = Timestamp.now();
+    // final String currentUserID = _auth.currentUser!.uid;
 
     // create a new message
     Message newMessage = Message(
@@ -57,5 +62,20 @@ class ChatService {
         .collection('Messages')
         .orderBy('timestamp', descending: false)
         .snapshots();
+  }
+
+  Future<void> backupChatHistory(int emotion) async {
+    String chatRoomID = '${currentUserID}_$emotion';
+    final chatRoomRef = _firestore.collection('ChatRooms').doc(chatRoomID);
+    final messagesSnapshot = await chatRoomRef.collection('Messages').get();
+
+    // 새로운 컬렉션에 메시지 복사
+    for (var msg in messagesSnapshot.docs) {
+      await _firestore
+          .collection('ChatHistory')
+          .doc(chatRoomID)
+          .collection('Messages')
+          .add(msg.data());
+    }
   }
 }
