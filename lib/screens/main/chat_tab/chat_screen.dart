@@ -3,6 +3,7 @@ import 'package:emotion_chat/screens/main/chat_tab/chat_list_screen.dart';
 import 'package:emotion_chat/services/chat/chat_service.dart';
 import 'package:emotion_chat/services/openai/openai_service.dart';
 import 'package:emotion_chat/widgets/list_item/chat_bubble.dart';
+import 'package:emotion_chat/widgets/modal/confirm_or_cancel_alert.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -90,6 +91,22 @@ class _ChatScreenState extends State<ChatScreen> {
     scrollDown();
   }
 
+  void onFinishConsultation() {
+    // 채팅 내역 백업
+    _chatService.backupChatHistory(widget.emotion);
+
+    // 해당 채팅방 제거
+    _chatService.deleteChatRoom(widget.emotion);
+
+    // ChatListScreen으로 돌아가기
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatListScreen(),
+      ),
+    );
+  }
+
   getEmotionString(int index) {
     if (index == 0) return '기쁨';
     if (index == 1) return '화남';
@@ -120,6 +137,27 @@ class _ChatScreenState extends State<ChatScreen> {
           },
           icon: const Icon(Icons.arrow_back_rounded),
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              //상담종료 버튼 누르는 경우
+              showDialog(
+                context: context,
+                builder: (context) => ConfirmOrCancelAlert(
+                  message: '상담을 종료하시겠습니까?',
+                  onPressedConfirm: onFinishConsultation,
+                ),
+              );
+            },
+            child: const Text(
+              '종료',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
