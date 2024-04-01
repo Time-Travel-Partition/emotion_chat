@@ -29,8 +29,32 @@ class AuthService extends ChangeNotifier {
       return userCredential;
     }
     // catch any errors
-    on FirebaseAuthException catch (e) {
-      throw Exception(e.code);
+    on FirebaseAuthException catch (error) {
+      print('Error code: ${error.code}'); // 에러 코드 로깅
+      // 예외에 따른 에러 코드 할당
+      String errorMessage;
+
+      switch (error.code) {
+        case 'user-not-found':
+          errorMessage = '가입되지 않은 이메일입니다.';
+          break;
+        case 'wrong-password':
+          errorMessage = '잘못된 비밀번호입니다.';
+          break;
+        case 'network-request-failed':
+          errorMessage = '네트워크 연결에 실패 하였습니다.';
+          break;
+        case 'invalid-email':
+          errorMessage = '잘못된 이메일 형식입니다.';
+          break;
+        case 'internal-error':
+          errorMessage = '잘못된 요청입니다.';
+          break;
+        default:
+          errorMessage = '로그인에 실패 하였습니다.';
+      }
+      // 예외 메시지를 포함해 예외를 다시 던짐
+      throw FirebaseAuthException(code: error.code, message: errorMessage);
     }
   }
 
@@ -51,8 +75,26 @@ class AuthService extends ChangeNotifier {
       });
 
       return userCredential;
-    } on FirebaseAuthException catch (e) {
-      throw Exception(e.code); // 미해결 : 이메일 중복, weak password (예시 pw: test3)
+    } on FirebaseAuthException catch (error) {
+      print('Error code: ${error.code}'); // 에러 코드 로깅
+      // 예외에 따른 에러 코드 할당
+      String errorMessage;
+
+      switch (error.code) {
+        case 'email-already-in-use':
+          errorMessage = '이미 사용 중인 이메일입니다.';
+        case 'weak-password':
+          errorMessage = '비밀번호는 6글자 이상이어야 합니다.';
+        case 'network-request-failed':
+          errorMessage = '네트워크 연결에 실패 하였습니다.';
+        case 'invalid-email':
+          errorMessage = '잘못된 이메일 형식입니다.';
+        case 'internal-error':
+          errorMessage = '잘못된 요청입니다.';
+        default:
+          errorMessage = '회원가입 중 오류가 발생했습니다.';
+      }
+      throw FirebaseAuthException(code: error.code, message: errorMessage);
     }
   }
 

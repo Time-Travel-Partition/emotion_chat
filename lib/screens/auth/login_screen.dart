@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/button/auth_button.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
-import 'package:flutter/material.dart';
+import 'package:emotion_chat/widgets/modal/confirm_alert.dart';
 
 class LoginScreen extends StatefulWidget {
   final void Function()? onTap;
@@ -32,16 +34,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
       await authService.signInWithEmailPassword(
           _emailController.text, _pwController.text);
-
+    } on FirebaseAuthException catch (e) {
       setState(() {
         isLoading = false;
       });
-    } catch (e) {
+      // 로그인 실패 시 AlertDialog 띄우기
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text(e.toString()),
-        ),
+        builder: (BuildContext context) {
+          return ConfirmAlert(message: e.message ?? '로그인 실패');
+        },
       );
     }
 

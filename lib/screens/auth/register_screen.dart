@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/button/auth_button.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:emotion_chat/widgets/modal/confirm_alert.dart';
 
 class RegisterScreen extends StatefulWidget {
   final void Function()? onTap;
@@ -38,13 +40,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
         setState(() {
           isLoading = false;
         });
-      } catch (e) {
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          isLoading = false;
+        });
+        // 로그인 실패 시 AlertDialog 띄우기
         showDialog(
           context: context,
-          builder: (context) => AlertDialog(
-            // 디자인 변경 필요
-            title: Text(e.toString()),
-          ),
+          builder: (BuildContext context) {
+            return ConfirmAlert(message: e.message ?? '로그인 실패');
+          },
         );
       }
     } else {
