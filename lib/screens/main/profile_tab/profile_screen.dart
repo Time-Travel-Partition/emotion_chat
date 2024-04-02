@@ -7,6 +7,7 @@ import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
 import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../../services/auth/auth_service.dart';
 import '../../../utils/image_picker_utils.dart';
 import '../../../widgets/image/image_selector.dart';
 
@@ -25,6 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isLoading = false;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final AuthService _authService = AuthService();
   final UserService _userService = UserService();
   final ProfileImageService _profileImageService = ProfileImageService();
   final TextEditingController _textEditingController = TextEditingController();
@@ -66,6 +68,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         image = pickedFile;
       });
     }
+  }
+
+  onResetPassword() {
+    _authService.resetPassword(email);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ConfirmAlert(message: '비밀번호 재설정 메일이 $email로 전송되었습니다.');
+      },
+    );
   }
 
   onSubmit() async {
@@ -194,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 25),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: onResetPassword,
                         style: ButtonStyle(
                           foregroundColor: MaterialStatePropertyAll(
                               Theme.of(context).colorScheme.background),

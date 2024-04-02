@@ -107,12 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      '아직 회원이 아니신가요? ',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                    ),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
@@ -122,9 +116,25 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
+                    ),
+                    Text(
+                      ' 혹은 ',
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.inversePrimary,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: Text(
+                        '비밀번호 찾기',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
                     )
                   ],
-                )
+                ),
               ],
             ),
     );
