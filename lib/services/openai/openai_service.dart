@@ -31,6 +31,7 @@ class OpenAIService {
             다른 이유나 삽화적 기억이 있는지를 대화를 통해 확인하고 전문가와의 상담을 제안해줘.
             감정의 크기가 작은 경우,
             그 대상과 관련된 에피소드를 계속 말하게 하고 공감함으로써 조금씩 감정을 완화시켜줘.
+            "화이팅" 같은 뜬금없는 응원의 말 하지 말아줘.
           ''',
         ),
       ],
@@ -67,7 +68,7 @@ class OpenAIService {
     String message =
         chatCompletion.choices.first.message.content![0].text.toString();
 
-    // 시스템 응답을 messageList에 추가 (DB에도 넣어야 할 듯)
+    // 시스템 응답을 messageList에 추가
     final systemMessage = OpenAIChatCompletionChoiceMessageModel(
       content: [
         OpenAIChatCompletionChoiceMessageContentItemModel.text(message),

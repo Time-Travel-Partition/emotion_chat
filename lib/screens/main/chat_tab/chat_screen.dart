@@ -117,47 +117,50 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          getEmotionString(widget.emotion),
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: AppBar(
+          title: Text(
+            getEmotionString(widget.emotion),
+            style: const TextStyle(
+              fontWeight: FontWeight.w500,
+            ),
           ),
-        ),
-        foregroundColor: Theme.of(context).colorScheme.background,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ChatListScreen(),
-              ),
-            );
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-        ),
-        actions: [
-          TextButton(
+          foregroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: IconButton(
             onPressed: () {
-              //상담종료 버튼 누르는 경우
-              showDialog(
-                context: context,
-                builder: (context) => ConfirmOrCancelAlert(
-                  message: '상담을 종료하시겠습니까?',
-                  onPressedConfirm: onFinishConsultation,
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatListScreen(),
                 ),
               );
             },
-            child: const Text(
-              '종료',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
+            icon: const Icon(Icons.arrow_back_rounded),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                //상담종료 버튼 누르는 경우
+                showDialog(
+                  context: context,
+                  builder: (context) => ConfirmOrCancelAlert(
+                    message: '상담을 종료하시겠습니까?',
+                    onPressedConfirm: onFinishConsultation,
+                  ),
+                );
+              },
+              child: const Text(
+                '종료',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       body: Column(
         children: [

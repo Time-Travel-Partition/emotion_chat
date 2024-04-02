@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Text(
-              '현재의 감정을 선택하세요 🙂',
+              '당신이 느끼고 있는 감정은 무엇인가요?',
               style: TextStyle(
                 fontSize: 18,
               ),

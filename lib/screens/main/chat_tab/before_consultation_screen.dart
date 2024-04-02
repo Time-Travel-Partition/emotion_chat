@@ -129,33 +129,36 @@ class _BeforeConsultationScreenState extends State<BeforeConsultationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Before Consultation',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        foregroundColor: Theme.of(context).colorScheme.background,
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_rounded),
-        ),
-        actions: [
-          TextButton(
-            onPressed: onSubmit,
-            child: const Text(
-              '제출',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-              ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: AppBar(
+          title: const Text(
+            'Before Consultation',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
             ),
           ),
-        ],
+          foregroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back_rounded),
+          ),
+          actions: [
+            TextButton(
+              onPressed: onSubmit,
+              child: const Text(
+                '제출',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       drawer: const SideDrawer(),
       bottomNavigationBar: const BottonMenuBar(),
