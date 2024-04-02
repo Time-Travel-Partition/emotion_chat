@@ -104,6 +104,25 @@ class AuthService extends ChangeNotifier {
   }
 
   Future<void> resetPassword(String email) async {
-    await _auth.sendPasswordResetEmail(email: email);
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (error) {
+      // 예외에 따른 에러 코드 할당
+      String errorMessage;
+
+      switch (error.code) {
+        case 'email-already-in-use':
+          errorMessage = '이미 사용 중인 이메일입니다.';
+        case 'network-request-failed':
+          errorMessage = '네트워크 연결에 실패하였습니다.';
+        case 'invalid-email':
+          errorMessage = '잘못된 이메일 형식입니다.';
+        case 'internal-error':
+          errorMessage = '잘못된 요청입니다.';
+        default:
+          errorMessage = '유효한 이메일을 입력해주세요.';
+      }
+      throw FirebaseAuthException(code: error.code, message: errorMessage);
+    }
   }
 }

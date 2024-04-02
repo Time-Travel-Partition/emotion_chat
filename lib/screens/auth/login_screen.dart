@@ -5,6 +5,8 @@ import 'package:emotion_chat/widgets/button/auth_button.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
 import 'package:emotion_chat/widgets/modal/confirm_alert.dart';
 
+import '../../widgets/modal/input_alert.dart';
+
 class LoginScreen extends StatefulWidget {
   final void Function()? onTap;
 
@@ -20,34 +22,68 @@ class _LoginScreenState extends State<LoginScreen> {
   // email and pw text controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   void login(BuildContext context) async {
-    // auth service
-    final authService = AuthService();
-    //final authService = Provider.of<AuthService>(context, listen: false);
-
-    // try login
     try {
       setState(() {
         isLoading = true;
       });
 
-      await authService.signInWithEmailPassword(
+      await _authService.signInWithEmailPassword(
           _emailController.text, _pwController.text);
     } on FirebaseAuthException catch (e) {
       setState(() {
         isLoading = false;
       });
       // 로그인 실패 시 AlertDialog 띄우기
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return ConfirmAlert(message: e.message ?? '로그인 실패');
-        },
-      );
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ConfirmAlert(message: e.message ?? '로그인 실패');
+          },
+        );
+      }
     }
+  }
 
-    // catch any errors
+  onResetPassword(String email) async {
+    try {
+      await _authService.resetPassword(email);
+      if (mounted) {
+        Navigator.pop(context);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return const ConfirmAlert(message: '비밀번호 재설정 메일이 전송되었습니다.');
+          },
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ConfirmAlert(message: e.message ?? '비밀번호 재설정 실패');
+          },
+        );
+      }
+    }
+  }
+
+  onTapChangePassword() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return InputAlert(
+          message: '이메일을 입력해주세요.',
+          onPressedConfirm: (String email) {
+            onResetPassword(email);
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -124,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: widget.onTap,
+                      onTap: onTapChangePassword,
                       child: Text(
                         '비밀번호 찾기',
                         style: TextStyle(
