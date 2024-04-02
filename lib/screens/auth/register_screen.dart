@@ -55,10 +55,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
     } else {
       showDialog(
         context: context,
-        builder: (context) => const AlertDialog(
-          // 디자인 변경 필요
-          title: Text('비밀번호가 일치하지 않습니다.'),
-        ),
+        builder: (BuildContext context) {
+          return const ConfirmAlert(message: '비밀번호가 일치하지 않습니다.');
+        },
       );
     }
   }

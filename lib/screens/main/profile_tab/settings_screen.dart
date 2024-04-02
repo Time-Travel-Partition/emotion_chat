@@ -1,4 +1,3 @@
-import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
