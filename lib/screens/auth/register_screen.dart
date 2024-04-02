@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/button/auth_button.dart';
 import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/textfield/auth_textfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:emotion_chat/widgets/modal/confirm_alert.dart';
+
+import '../../utils/regex.dart';
 
 class RegisterScreen extends StatefulWidget {
   final void Function()? onTap;
@@ -23,37 +27,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void register(BuildContext context) async {
     final auth = AuthService();
 
-    // passwords match => user 생성
-    if (_pwController.text == _confirmPwController.text) {
-      try {
-        setState(() {
-          isLoading = true;
-        });
+    // 비밀번호와 비밀번호 확인이 서로 같은지 판단
+    String? notSamePwMessage =
+        validatePasswordConfirm(_pwController.text, _confirmPwController.text);
+    if (notSamePwMessage == null) {
+      // 비밀번호가 유효한 형식인지 판단(특수문자 포함 여부 등)
+      String? invalidPwMessage = validatePassword(_pwController.text);
+      if (invalidPwMessage == null) {
+        try {
+          setState(() {
+            isLoading = true;
+          });
 
-        await auth.signUpWithEmailPassword(
-          _emailController.text,
-          _pwController.text,
-        );
+          await auth.signUpWithEmailPassword(
+            _emailController.text,
+            _pwController.text,
+          );
 
-        setState(() {
-          isLoading = false;
-        });
-      } catch (e) {
+          setState(() {
+            isLoading = false;
+          });
+        } on FirebaseAuthException catch (e) {
+          setState(() {
+            isLoading = false;
+          });
+          // 로그인 실패 시 AlertDialog 띄우기
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return ConfirmAlert(message: e.message ?? '로그인 실패');
+            },
+          );
+        }
+      } else {
+        // 비밀번호가 유효하지 않은 형식이면
         showDialog(
           context: context,
-          builder: (context) => AlertDialog(
-            // 디자인 변경 필요
-            title: Text(e.toString()),
-          ),
+          builder: (BuildContext context) {
+            return ConfirmAlert(message: invalidPwMessage);
+          },
         );
       }
     } else {
+      // 비밀번호가 서로 일치하지 않으면
       showDialog(
         context: context,
-        builder: (context) => const AlertDialog(
-          // 디자인 변경 필요
-          title: Text('비밀번호가 일치하지 않습니다.'),
-        ),
+        builder: (BuildContext context) {
+          return ConfirmAlert(message: notSamePwMessage);
+        },
       );
     }
   }

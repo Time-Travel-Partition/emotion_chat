@@ -3,7 +3,6 @@ import 'package:emotion_chat/services/auth/auth_service.dart';
 import 'package:emotion_chat/widgets/textfield/emotion_textfield.dart';
 import 'package:emotion_chat/widgets/modal/confirm_alert.dart';
 import 'package:emotion_chat/widgets/navigation/side_drawer.dart';
-import 'package:emotion_chat/widgets/navigation/top_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:emotion_chat/widgets/navigation/bottom_menu_bar.dart';
 import 'package:emotion_chat/widgets/button/emotion_toggle_buttons.dart';
