@@ -52,12 +52,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             isLoading = false;
           });
           // 로그인 실패 시 AlertDialog 띄우기
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return ConfirmAlert(message: e.message ?? '로그인 실패');
-            },
-          );
+          if (mounted) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ConfirmAlert(message: e.message ?? '로그인 실패');
+              },
+            );
+          }
         }
       } else {
         // 비밀번호가 유효하지 않은 형식이면
