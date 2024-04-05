@@ -1,6 +1,6 @@
 # 🎨 색감
 ## 🔎 프로젝트 소개
-![색감 소개](https://github.com/Time-Travel-Partition/saekam/assets/94723713/c6ffe8cd-15d1-4bca-a638-1b9305269c38)
+![색감썸네일](https://github.com/Time-Travel-Partition/saekam/assets/94723713/c664c4b2-05f5-4a2c-aec5-edd8360d7a2d)
   
 <details>
   <summary>채팅 화면</summary>
