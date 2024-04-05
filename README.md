@@ -1,24 +1,6 @@
 # 🎨 색감
 ## 🔎 프로젝트 소개
-### 자신의 감정을 객관적으로 바라볼 수 있도록 돕는 AI 심리 상담 서비스   
-  
-|기쁨|불안|
-|--|--|
-|![chat_icon_0](https://github.com/Time-Travel-Partition/saekam/assets/94723713/ef059cc0-2859-4cc6-9c80-120ae8fa9b3d)|![chat_icon_1](https://github.com/Time-Travel-Partition/saekam/assets/94723713/bbec3e60-f9ab-46bc-a58f-66dd5860ac9c)|
-
-|화남|우울|
-|--|--|
-|![chat_icon_2](https://github.com/Time-Travel-Partition/saekam/assets/94723713/4cf8ec53-a8e5-45f9-8ca0-a72d68975b48)|![chat_icon_3](https://github.com/Time-Travel-Partition/saekam/assets/94723713/f55f515a-0ff1-4992-a35a-370ba6a10e54)|
-  
-오늘 당신이 느꼈던 감정은 어떤 색인가요?  
-  
-모든 감정은 존재하는 이유가 있습니다.  
-  
-나를 이루는 감정과 직면하고 이를 적절히 해소해보세요.  
-  
-당신의 감정을 객관적으로 바라보고 사랑해주세요.  
-  
-모든 감정은 결국 당신입니다.  
+![색감 소개](https://github.com/Time-Travel-Partition/saekam/assets/94723713/c6ffe8cd-15d1-4bca-a638-1b9305269c38)
   
 <details>
   <summary>채팅 화면</summary>
