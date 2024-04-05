@@ -1,6 +1,6 @@
 # 🎨 색감
 ## 🔎 프로젝트 소개
-![색감썸네일](https://github.com/Time-Travel-Partition/saekam/assets/94723713/c664c4b2-05f5-4a2c-aec5-edd8360d7a2d)
+![MacBook Pro 16_ - 1](https://github.com/Time-Travel-Partition/saekam/assets/94723713/9252f75e-ad73-4a81-9706-13ff0e1e3a2c)
   
 <details>
   <summary>채팅 화면</summary>
