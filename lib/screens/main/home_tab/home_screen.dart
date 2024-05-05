@@ -32,7 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
             const Text(
               '당신이 느끼고 있는 감정은 무엇인가요?',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 19,
+                fontWeight: FontWeight.w600
               ),
             ),
             Column(

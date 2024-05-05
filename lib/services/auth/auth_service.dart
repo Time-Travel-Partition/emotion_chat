@@ -30,7 +30,6 @@ class AuthService extends ChangeNotifier {
     }
     // catch any errors
     on FirebaseAuthException catch (error) {
-      print('Error code: ${error.code}'); // 에러 코드 로깅
       // 예외에 따른 에러 코드 할당
       String errorMessage;
 
@@ -76,7 +75,6 @@ class AuthService extends ChangeNotifier {
 
       return userCredential;
     } on FirebaseAuthException catch (error) {
-      print('Error code: ${error.code}'); // 에러 코드 로깅
       // 예외에 따른 에러 코드 할당
       String errorMessage;
 

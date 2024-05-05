@@ -32,7 +32,6 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    print(openAIService.messagesList);
 
     // 포커스 노드 리스너 생성
     myFocusNode.addListener(() {

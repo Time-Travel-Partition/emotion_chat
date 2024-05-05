@@ -84,44 +84,44 @@ class _SideDrawerState extends State<SideDrawer> {
             ),
           ),
 
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: ListTile(
-              title: const Text('다크모드'),
-              leading: const Icon(
-                Icons.dark_mode_rounded,
-                color: Colors.blue,
-              ),
-              onTap: () {
-                //pop the drawer
-                Navigator.pop(context);
-              },
-            ),
-          ),
-
-          // settings tile
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: ListTile(
-              title: const Text('환경설정'),
-              leading: const Icon(
-                Icons.settings,
-                color: Colors.blue,
-              ),
-              onTap: () {
-                //pop the drawer
-                Navigator.pop(context);
-
-                //Navigate to settings page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsScreen(),
-                  ),
-                );
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20.0),
+          //   child: ListTile(
+          //     title: const Text('다크모드'),
+          //     leading: const Icon(
+          //       Icons.dark_mode_rounded,
+          //       color: Colors.blue,
+          //     ),
+          //     onTap: () {
+          //       //pop the drawer
+          //       Navigator.pop(context);
+          //     },
+          //   ),
+          // ),
+          //
+          // // settings tile
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 20.0),
+          //   child: ListTile(
+          //     title: const Text('환경설정'),
+          //     leading: const Icon(
+          //       Icons.settings,
+          //       color: Colors.blue,
+          //     ),
+          //     onTap: () {
+          //       //pop the drawer
+          //       Navigator.pop(context);
+          //
+          //       //Navigate to settings page
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => const SettingsScreen(),
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // ),
 
           // logout tile
           Padding(
