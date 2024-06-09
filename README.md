@@ -15,7 +15,6 @@
 |--|--|
 |[김서로](https://github.com/okxooxoo)|OpenAI 연동 및 UI/UX 구현|
 |[유재호](https://github.com/yghubs)|회원가입 및 채팅 시스템 구현|
-|[양태훈](https://github.com/Histamine03)|언어 모델 개발 및 채팅 데이터 분석|
 
 ## 📝 참고 논문
 - 멘탈 헬스케어 챗봇의 시각적 제시와 사용자 경험 (2020)
